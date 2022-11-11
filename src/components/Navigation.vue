@@ -36,6 +36,7 @@ nav {
 
       span {
         font-size: 1.6em;
+        font-family: 'Cormorant Garamond', serif;
         text-transform: uppercase;
       }
     }

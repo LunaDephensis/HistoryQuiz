@@ -1,9 +1,6 @@
 <template>
   <section class="home">
-    <nav>
-      <span class="logo"><span>H</span>istory <span>Q</span>uiz</span>
-      <a href="#" class="stars"><img src="../assets/images/shield.png" alt="stars"></a>
-    </nav>
+    <Navigation/>
     <div class="mainContent">
       <div class="timeLine">
         <div class="periodBox">
@@ -27,16 +24,23 @@
       </div>
       <button class="play"><span>Játék indítása</span></button>
     </div>
-    <footer>
-      <ul class="contact">
-        <li><a href="#"><ion-icon name="logo-github"></ion-icon></a></li>
-        <li><a href="#"><ion-icon name="logo-linkedin"></ion-icon></a></li>
-      </ul>
-      <span class="codeBy">Code by <a href="#">Zámbó Nikolett</a></span>
-      <span class="links">icons from: <a href="#"><ion-icon name="logo-ionic"></ion-icon></a></span>
-    </footer>
+    <MyFooter/>
   </section>
 </template>
+
+<script>
+
+import Navigation from '../components/Navigation.vue';
+import MyFooter from '../components/MyFooter.vue';
+
+export default {
+  name: 'Home',
+  components: {
+    Navigation, MyFooter
+  }
+}
+
+</script>
 
 <style lang="scss" scoped>
 
@@ -49,69 +53,6 @@
   align-items: center;
   flex-direction: column;
   background: $dark;
-
-  nav {
-    position: relative;
-    /*top: 0;
-    left: 0;*/
-    width: 100%;
-    height: 5em;
-    z-index: 1000;
-    padding: 0 8em;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-
-    @include tablet {
-      padding: 0 3.7em;
-    }
-
-    @include mobile {
-      padding: 0 1.5em;
-    }
-
-    .logo {
-      font-family: 'Cormorant Garamond', serif;
-      text-transform: uppercase;
-      font-weight: 700;
-      font-size: 1.1em;
-      letter-spacing: 0.2em;
-      cursor: pointer;
-      color: $main;
-
-      span {
-        font-size: 1.6em;
-        text-transform: uppercase;
-      }
-    }
-
-    .stars {
-      position: relative;
-      text-decoration: none;
-      max-width: 2.5em;
-      transition: 0.3s ease-in-out;
-
-      @include mobile {
-        position: fixed;
-        top: 1.5em;
-        right: 2em;
-      }
-
-      img {
-        max-width: 100%;
-        transition: 0.3s ease-in-out;
-      }
-
-      &:hover {
-        transform: scale(1.1);
-
-        img {
-          max-width: 100%;
-          transform: scale(1.1);
-        }
-      }
-    }
-  }
 
   .mainContent {
     position: relative;
@@ -257,6 +198,8 @@
       transition: 0.5s;
 
       span {
+        font-family: 'Cormorant Garamond', serif;
+        font-weight: 800;
         position: relative;
         color: $dark;
         z-index: 10000;
@@ -282,107 +225,6 @@
 
         &::before {
           transform: scale(1);
-        }
-      }
-    }
-  }
-
-  footer {
-    position: absolute;
-    bottom: 0;
-    left: 0;
-    width: 100%;
-    height: 3em;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0.5em 8em;
-    padding-bottom: 0.7em;
-
-    @include tablet {
-      padding: 0.5em 3.1em;
-      padding-bottom: 0.7em;
-    }
-
-    @include mobile {
-      padding: 0.5em 1.5em;
-      padding-bottom: 0.7em;
-    }
-
-    .contact {
-      position: relative;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-
-      @include mobile {
-        position: fixed;
-        top: 50%;
-        left: 1.5em;
-        flex-direction: column;
-      }
-
-      li {
-        list-style: none;
-        margin-right: 1em;
-
-        @include mobile {
-          margin-right: 0;
-          margin-bottom: 1em;
-        }
-
-        a {
-          text-decoration: none;
-
-          ion-icon {
-            font-size: 1.5em;
-            color: $main;
-
-            @include mobile {
-              font-size: 2em;
-            }
-
-            &:hover {
-              color: $mainHover;
-            }
-          }
-        }
-      }
-    }
-
-    .codeBy {
-      font-size: 0.9em;
-      color: $main;
-
-      a {
-        text-decoration: none;
-        font-weight: 800;
-        color: $main;
-
-        &:hover {
-          color: $mainHover;
-        }
-      }
-    }
-
-    .links {
-      font-size: 0.9em;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      color: $main;
-
-      a {
-        text-decoration: none;
-        margin-left: 1em;
-
-        ion-icon {
-          font-size: 1.5em;
-          color: $main;
-
-          &:hover {
-            color: $mainHover;
-          }
         }
       }
     }
