@@ -90,7 +90,8 @@ export default {
     name: 'Score',
     components: {
         Navigation, MyFooter
-    }
+    },
+    
 }
 
 </script>

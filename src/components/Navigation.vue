@@ -1,7 +1,7 @@
 <template>
     <nav>
       <span class="logo"><span>H</span>istory <span>Q</span>uiz</span>
-      <a href="#" class="stars"><img src="../assets/images/shield.png" alt="stars"></a>
+      <a href="#" class="stars"><img src="/images/shield.png" alt="stars"></a>
     </nav>
 </template>
 

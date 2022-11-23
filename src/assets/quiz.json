@@ -1,0 +1,272 @@
+[
+    {
+        "question": "Melyik csatához kötődik Kapisztrán János neve?",
+        "answers": ["mohácsi vész ( 1526. )", "nándorfehérvári diadal ( 1456. )", "muhi csata ( 1241. )"],
+        "correctIndex": 1,
+        "topicId": 1 
+    },
+    {
+        "question": "Kik szenvedtek vereséget a 955-ös augsburgi csatában?",
+        "answers": ["magyarok", "németek", "franciák"],
+        "correctIndex": 0,
+        "topicId": 1 
+    },
+    {
+        "question": "Mikor volt I. (Nagy) Ottó császárrá koronázása?",
+        "answers": ["936", "941", "962"],
+        "correctIndex": 2,
+        "topicId": 1 
+    },
+    {
+        "question": "Kinek a nevéhez fűződik a Canossa-járás?",
+        "answers": ["IV. Henrik", "VIII. Henrik", "Luxemburgi Zsigmond"],
+        "correctIndex": 0,
+        "topicId": 1 
+    },
+    {
+        "question": "Kit égettek meg az 1415-ös Koonstanz-i zsinaton?",
+        "answers": ["Perényi Miklós", "Husz János", "XIII. Benedek"],
+        "correctIndex": 1,
+        "topicId": 1 
+    },
+    {
+        "question": "Melyik évben fedezte fel Kolombusz Amerikát?",
+        "answers": ["1451", "1492", "1506"],
+        "correctIndex": 1,
+        "topicId": 1 
+    },
+    {
+        "question": "Milyen típusú hajó volt Kolombusz Kristóf vezérhajója (Santa Maria) azon az útján, amin felfdezte Amerikát?",
+        "answers": ["karakk", "kogge", "karavella"],
+        "correctIndex": 0,
+        "topicId": 1 
+    },
+    {
+        "question": "Milyen tudományos újítás fűződik Kopernikusz nevéhez?",
+        "answers": ["a teleszkóp feltalálása", "leírta a tömegvonzás törvényét", "a heliocentrikus világkép kidolgozása"],
+        "correctIndex": 2,
+        "topicId": 1 
+    },
+    {
+        "question": "Melyik területen vált ismertté Paracelsus munkássága?",
+        "answers": ["matematika", "fizika", "orvoslás"],
+        "correctIndex": 2,
+        "topicId": 1 
+    },
+    {
+        "question": "Európa melyik területén indult elsőként virágzásnak a reneszánsz?",
+        "answers": ["Itália", "Franciaország", "Magyarország"],
+        "correctIndex": 0,
+        "topicId": 1 
+    },
+    {
+        "question": "Mi NEM jellemző a gótikus művészetre?",
+        "answers": ["csúcsívek és támpillérek az építészetben", "újra felfedezi az ókori témákat, szellemiséget", "nagyméretű festett üvegablakok"],
+        "correctIndex": 1,
+        "topicId": 1 
+    },
+    {
+        "question": "Igaz -e, hogy az ellenreformáció törekvése a protestáns mozgalmak elleni fellépés volt?",
+        "answers": ["igaz", "hamis"],
+        "correctIndex": 0,
+        "topicId": 1 
+    },
+    {
+        "question": "Igaz -e, hogy a protestantizmus szorgalmazta a nemzeti nyelvű Biblia fordításokat?",
+        "answers": ["igaz", "hamis"],
+        "correctIndex": 0,
+        "topicId": 1 
+    },
+    {
+        "question": "Kihez kötődik Munkács várának védelme az 1685-1688 közötti ostrom idején?",
+        "answers": ["Munkácsy Mihály", "Hunyadi Mátyás", "Zrínyi Ilona"],
+        "correctIndex": 2,
+        "topicId": 1 
+    },
+    {
+        "question": "Kire utal a következő Petőfi idézet: 'Izzó vastrónon őt elégetétek,/ De szellemét a tűz nem égeté meg'",
+        "answers": ["Husz János", "Dózsa György", "Szent Johanna"],
+        "correctIndex": 1,
+        "topicId": 1 
+    },
+    {
+        "question": "Mely színkombináció jellemzi leginkább a görög vázafestészetet?",
+        "answers": ["fekete-fehér", "fekete-arany", "fekete-vörös"],
+        "correctIndex": 2,
+        "topicId": 0 
+    },
+    {
+        "question": "Mit jelent a polisz kifejezés?",
+        "answers": ["városállam", "népgyűlés", "ókori rendvédelmi szerv"],
+        "correctIndex": 0,
+        "topicId": 0 
+    },
+    {
+        "question": "Melyik isten szent helye volt a híres delphoi jósda?",
+        "answers": ["Zeusz", "Apollón", "Aphrodité"],
+        "correctIndex": 1,
+        "topicId": 0 
+    },
+    {
+        "question": "A cserépszavazás során új vezetőt választottak a szavazók. Igaz vagy hamis?",
+        "answers": ["igaz", "hamis"],
+        "correctIndex": 1,
+        "topicId": 0 
+    },
+    {
+        "question": "Mit helyeztek el a kanópuszedényekben az ókori Egyiptomban?",
+        "answers": ["terményáldozatot az isteneknek", "az elhunyt belső szerveit", "ételt a halott számára"],
+        "correctIndex": 1,
+        "topicId": 0 
+    },
+    {
+        "question": "Hol uralkodott a törvénykönyvéről híres Hammurapi?",
+        "answers": ["Babilon", "Fönícia", "Makedónia"],
+        "correctIndex": 0,
+        "topicId": 0 
+    },
+    {
+        "question": "Melyik név NEM III. Alexandroszt jelöli?",
+        "answers": ["Nagy Sándor", "Iszkander", "Arkhelaosz"],
+        "correctIndex": 2,
+        "topicId": 0 
+    },
+    {
+        "question": "Milyen tevékenység volt a legjelentősebb Föníciában?",
+        "answers": ["kereskedelem", "mezőgazdaság", "katonáskodás"],
+        "correctIndex": 0,
+        "topicId": 0 
+    },
+    {
+        "question": "Mit jelöltek a patricius és plebejus kifejezések az ókori Rómában?",
+        "answers": ["vallási vezetőket", "társadalmi rétegeket", "katonai rangokat"],
+        "correctIndex": 2,
+        "topicId": 0 
+    },
+    {
+        "question": "Melyik ókori kultúra túlvilággal kapcsolatos nézeteit tartalmazza a Halottak Könyve?",
+        "answers": ["egyiptomi", "római", "mezopotámiai"],
+        "correctIndex": 0,
+        "topicId": 0 
+    },
+    {
+        "question": "Mi volt a mitikus, krokodilfejű Ammut szerepe az ókori egyiptomi vallásban?",
+        "answers": ["átsegítette az elhunytakat a túlvilágra", "őrizte az alvilág kapuját", "felfalta a bűnösök szívét"],
+        "correctIndex": 2,
+        "topicId": 0 
+    },
+    {
+        "question": "Melyik civilizáció kezdetét számítjuk Nagy Sándor uralkodásától?",
+        "answers": ["Perzsa Birodalom", "Hellenizmus", "Római Birodalom"],
+        "correctIndex": 1,
+        "topicId": 0 
+    },
+    {
+        "question": "Mi jellemzi az egyiptomi falfestészetet?",
+        "answers": ["legnagyobb felületek törvénye", "perspektíva használata", "vadászmágia"],
+        "correctIndex": 0,
+        "topicId": 0 
+    },
+    {
+        "question": "Igaz -e, hogy Csin Si Huang-ti kínai császár sírját körülbelül 8000 agyagkatona, lovasszekerek és lovasok őrzik?",
+        "answers": ["igaz", "hamis"],
+        "correctIndex": 0,
+        "topicId": 0 
+    },
+    {
+        "question": "Kik voltak a helóták?",
+        "answers": ["spártai jobbágyok", "perzsa rabszolgák", "római kereskedők"],
+        "correctIndex": 0,
+        "topicId": 0 
+    },
+    {
+        "question": "Mit nevezünk Árpád-vonalnak?",
+        "answers": ["második világháborús védelmi rendszert", "háborús utánpótlási vonalat", "első világháborús lövészárkokat"],
+        "correctIndex": 0,
+        "topicId": 2 
+    },
+    {
+        "question": "Az alábbiak közül melyiket NEM használták az I. világháborúban?",
+        "answers": ["géppisztoly", "kézigránát", "sugárhajtású repülőgép"],
+        "correctIndex": 2,
+        "topicId": 2 
+    },
+    {
+        "question": "Melyik volt a világ első sugárhajtású repülője?",
+        "answers": ["F-15 Eagle", "Messerschmitt Me-262 Schwalbe", "Fokker Dr.I"],
+        "correctIndex": 1,
+        "topicId": 2 
+    },
+    {
+        "question": "Melyik esemény követelte a legtöbb civil áldozatot?",
+        "answers": ["Németország blokádja ( 1914-1919 )", "London bombázása ( 1940 )", "Hiroshima és Nagasaki bombázása ( 1945 )"],
+        "correctIndex": 0,
+        "topicId": 2 
+    },
+    {
+        "question": "Mely fogalom kapcsolódik a II. világháborúhoz?",
+        "answers": ["téli háború", "versenyfutás a tengerhez", "a legvidámabb barakk"],
+        "correctIndex": 0,
+        "topicId": 2 
+    },
+    {
+        "question": "Igaz vagy hamis? Farkasfalkának nevezzük azt az I. világháborús taktikát, amikor több tengeralattjáróval támadtak egy konvojra.",
+        "answers": ["igaz", "hamis"],
+        "correctIndex": 1,
+        "topicId": 2 
+    },
+    {
+        "question": "Mikor volt a normandiai partraszállás?",
+        "answers": ["1919. július 15.", "1941. május 3.", "1944. június 6."],
+        "correctIndex": 2,
+        "topicId": 2 
+    },
+    {
+        "question": "Mi történt 1920. június 4-én?",
+        "answers": ["győzőtt az őszirózsás forradalom", "megkötötték a trianoni békeszerződést", "meghalt I. Ferenc József"],
+        "correctIndex": 1,
+        "topicId": 2 
+    },
+    {
+        "question": "Mely területet kapta vissza Magyarország a II. bécsi döntés következtében?",
+        "answers": ["Felvidék", "Kárpátalja", "Észak-Erdély"],
+        "correctIndex": 2,
+        "topicId": 2 
+    },
+    {
+        "question": "Hol tartották az első, 1924-ben megrendezett téli olimpiát?",
+        "answers": ["Franciaország, Chamoix", "Görögország, Athén", "Finnország, Helsinki"],
+        "correctIndex": 0,
+        "topicId": 2 
+    },
+    {
+        "question": "Melyik magyar költő szimpatizált a munkásmozgalommal?",
+        "answers": ["Radnóti Miklós", "József Attila", "Ady Endre"],
+        "correctIndex": 1,
+        "topicId": 2 
+    },
+    {
+        "question": "Mit nvezünk Sztálin-orgonának?",
+        "answers": ["népszerű szovjet színpadi díszletet", "szovjet rakéta-sorozatvetőt", "hidegháborús kultúrpolitikai tevékenységet"],
+        "correctIndex": 1,
+        "topicId": 2 
+    },
+    {
+        "question": "Igaz vagy hamis? Az angliai csata német győzelemmel zárult.",
+        "answers": ["igaz", "hamis"],
+        "correctIndex": 1,
+        "topicId": 2 
+    },
+    {
+        "question": "Ki, és kinek küldött elsőként hadüzenetet az első világháború kitörésekor?",
+        "answers": ["az Osztrák-Magyar Monarchia küldött Szerbiának", "Szerbia küldött a Monarchiának", "Németország küldött Franciaországnak"],
+        "correctIndex": 0,
+        "topicId": 2 
+    },
+    {
+        "question": "Mit nevezünk Dinamó-hadműveletnek?",
+        "answers": ["a dunkerque-i evakuációt", "Antwerpen ostromát", "a Harmadik Birodalom támadását a Szovjetunió ellen"],
+        "correctIndex": 0,
+        "topicId": 2 
+    }
+]

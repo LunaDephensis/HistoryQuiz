@@ -3,24 +3,20 @@
     <Navigation/>
     <div class="mainContent">
       <div class="timeLine">
-        <div class="periodBox">
-          <div class="period">
+        <div class="periodBox" 
+              v-for="topic in topics" :key="topic.id">
+          <div class="period"
+                :class="{active: topic.isActive}"
+                :style="{background: 'url('+topic.picture+')',
+                'background-repeat': 'no-repeat',
+                'background-size': 'cover',
+                'background-position': 'center'}"
+                @click="topicChoosing(topic)">
           <!--<img src="../assets/image.png" alt="period1">-->
           </div>
-          <h3 class="periodTitle">Ókori birodalmak</h3>
+          <h3 class="periodTitle">{{topic.title}}</h3>
         </div>
-        <div class="periodBox active">
-          <div class="period active">
-          <!--<img src="../assets/image.png" alt="period2">-->
-          </div>
-          <h3 class="periodTitle">Királyok és lovagok</h3>
-        </div>
-        <div class="periodBox">
-          <div class="period">
-          <!--<img src="../assets/image.png" alt="period3">-->
-          </div>
-          <h3 class="periodTitle">20. század</h3>
-        </div>
+        
       </div>
       <button class="play"><span>Játék indítása</span></button>
     </div>
@@ -37,6 +33,42 @@ export default {
   name: 'Home',
   components: {
     Navigation, MyFooter
+  },
+  data() {
+    return {
+      topics: [
+        {
+          title: "Ókori birodalmak",
+          picture: "/images/okor.jpg",
+          id: 1,
+          isActive: false
+        },
+        {
+          title: "Királyok és lovagok",
+          picture: "/images/image.png",
+          id: 2,
+          isActive: true
+        },
+        {
+          title: "20. század",
+          picture: "/images/lullabyzn11.png",
+          id: 3,
+          isActive: false
+        }
+      ]
+    }
+  },
+  methods: {
+    topicChoosing(actualTopic) {
+      this.topics.forEach((topic) => {
+        if(actualTopic.id === topic.id) {
+          topic.isActive = true;
+        }
+        else {
+          topic.isActive = false;
+        }
+      });
+    }
   }
 }
 
@@ -120,10 +152,10 @@ export default {
           justify-content: center;
           align-items: center;
           border-radius: 2.5em 2.5em 17.5em 17.5em;
-          background: url(../assets/image.png);
-          background-repeat: no-repeat;
+          
+          /*background-repeat: no-repeat;
           background-size: cover;
-          background-position: center;
+          background-position: center;*/
           z-index: 100;
           transition: 0.3s ease-in-out;
           cursor: pointer;
