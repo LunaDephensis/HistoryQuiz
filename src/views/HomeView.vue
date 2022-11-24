@@ -12,13 +12,16 @@
                 'background-size': 'cover',
                 'background-position': 'center'}"
                 @click="topicChoosing(topic)">
-          <!--<img src="../assets/image.png" alt="period1">-->
           </div>
           <h3 class="periodTitle">{{topic.title}}</h3>
         </div>
         
       </div>
-      <button class="play"><span>Játék indítása</span></button>
+      <button class="play"
+              :class="{active: isActivePlayButton}"
+              @click="launchQuiz()">
+                <span>Játék indítása</span>
+      </button>
     </div>
     <MyFooter/>
   </section>
@@ -40,22 +43,24 @@ export default {
         {
           title: "Ókori birodalmak",
           picture: "/images/okor.jpg",
-          id: 1,
+          id: 0,
           isActive: false
         },
         {
           title: "Királyok és lovagok",
           picture: "/images/image.png",
-          id: 2,
-          isActive: true
+          id: 1,
+          isActive: false
         },
         {
           title: "20. század",
           picture: "/images/lullabyzn11.png",
-          id: 3,
+          id: 2,
           isActive: false
         }
-      ]
+      ],
+      choosedTopicId: undefined,
+      isActivePlayButton: false
     }
   },
   methods: {
@@ -63,11 +68,18 @@ export default {
       this.topics.forEach((topic) => {
         if(actualTopic.id === topic.id) {
           topic.isActive = true;
+          this.choosedTopicId = topic.id;
+          this.isActivePlayButton = true;
         }
         else {
           topic.isActive = false;
         }
       });
+    },
+    launchQuiz() {
+      if(this.choosedTopicId !== undefined) {
+        this.$router.push({path: `/quiz/${this.choosedTopicId}`});
+      }
     }
   }
 }
@@ -189,12 +201,6 @@ export default {
               opacity: 0;
             }
           }
-
-          /*img {
-            position: relative;
-            height: 100%;
-            width: auto;
-          }*/
         }
 
         .periodTitle {
@@ -226,7 +232,6 @@ export default {
       padding: 0.5em 1.5em;
       border-radius: 0.25em;
       background: $main;
-      cursor: pointer;
       transition: 0.5s;
 
       span {
@@ -235,6 +240,12 @@ export default {
         position: relative;
         color: $dark;
         z-index: 10000;
+      }
+
+      &.active {
+        span {
+          color: $white;
+        }
       }
 
       &:before {
@@ -250,7 +261,9 @@ export default {
         transition: 0.5s;
       }
 
-      &:hover {
+      &.active:hover {
+        cursor: pointer;
+
         span {
           color: $white;
         }

@@ -3,15 +3,14 @@
         <Navigation/>
         <div class="quizBox">
             <div class="question">
-                <h2>Melyik csatához kötődik Kapisztrán János neve?</h2>
+                <h2>{{actualPuzzle.question}}</h2>
                 <div class="timerBar">
                     <div></div>
                 </div>
             </div>
             <ul class="answers">
-                <li><ion-icon name="shield-half"></ion-icon>Mohácsi vész ( 1526. )</li>
-                <li><ion-icon name="shield-half"></ion-icon>Nándorfehérvári diadal ( 1456. )</li>
-                <li><ion-icon name="shield-half"></ion-icon>Muhi csata ( 1241. )</li>
+                <li v-for="(answer, i) in actualPuzzle.answers" :key="i"
+                    @click="nextPuzzle(i)"><ion-icon name="shield-half"></ion-icon>{{answer}}</li>
             </ul>
         </div>
         <MyFooter/>
@@ -22,11 +21,53 @@
 
 import Navigation from '../components/Navigation.vue';
 import MyFooter from '../components/MyFooter.vue';
+import quizData from '../assets/quiz.json';
 
 export default {
   name: 'Quiz',
   components: {
     Navigation, MyFooter
+  },
+  data() {
+      return {
+          score: 0,
+          actualPuzzle: undefined,
+          puzzleCounter: 0,
+          randomPuzzles: []
+      }
+  },
+  methods: {
+      nextPuzzle(index) {
+        this.actualPuzzle.userGuess = index;
+        if(this.actualPuzzle.userGuess === this.actualPuzzle.correctIndex) {
+            this.score++;
+        }
+        if(this.puzzleCounter < 4) {
+            this.puzzleCounter++;
+            console.log(this.puzzleCounter);
+            console.log("belépett");
+            this.actualPuzzle = this.randomPuzzles[this.puzzleCounter];
+        }
+        if(this.puzzleCounter === 4) {
+            console.log(`Játék vége! Elért pontok: ${this.score}`);
+        }
+      }
+  },
+  created() {
+      let puzzles = quizData.filter((dataItem) => {
+        return dataItem.topicId === Number(this.$route.params.topicId);
+      });
+      let randomIndexes = [];
+      while(randomIndexes.length < 5) {
+        let num = Math.floor(Math.random() * (puzzles.length));
+        if(!randomIndexes.includes(num)) {
+            randomIndexes.push(num);
+        }
+      }
+      this.randomPuzzles = puzzles.filter((puzzle, i) => {
+          return randomIndexes.includes(i);
+      });
+      this.actualPuzzle = this.randomPuzzles[this.puzzleCounter];
   }
 }
 
