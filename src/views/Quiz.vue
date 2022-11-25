@@ -1,7 +1,7 @@
 <template>
     <section class="quiz">
         <Navigation/>
-        <div class="quizBox">
+        <div class="quizBox" v-if="!isActiveScoreTable">
             <div class="question">
                 <h2>{{actualPuzzle.question}}</h2>
                 <div class="timerBar">
@@ -13,6 +13,7 @@
                     @click="nextPuzzle(i)"><ion-icon name="shield-half"></ion-icon>{{answer}}</li>
             </ul>
         </div>
+        <ScoreTable v-if="isActiveScoreTable" :puzzles="randomPuzzles" />
         <MyFooter/>
     </section>
 </template>
@@ -21,35 +22,34 @@
 
 import Navigation from '../components/Navigation.vue';
 import MyFooter from '../components/MyFooter.vue';
+import ScoreTable from '../components/ScoreTable.vue';
 import quizData from '../assets/quiz.json';
 
 export default {
   name: 'Quiz',
   components: {
-    Navigation, MyFooter
+    Navigation, MyFooter, ScoreTable
   },
   data() {
       return {
-          score: 0,
           actualPuzzle: undefined,
           puzzleCounter: 0,
-          randomPuzzles: []
+          randomPuzzles: [],
+          isActiveScoreTable: false
       }
   },
   methods: {
       nextPuzzle(index) {
         this.actualPuzzle.userGuess = index;
-        if(this.actualPuzzle.userGuess === this.actualPuzzle.correctIndex) {
-            this.score++;
+        if(this.puzzleCounter === 4) {
+            console.log(`Játék vége! Elért pontok: ${this.score}`);
+            this.isActiveScoreTable = true;
         }
-        if(this.puzzleCounter < 4) {
+        else {
             this.puzzleCounter++;
             console.log(this.puzzleCounter);
             console.log("belépett");
             this.actualPuzzle = this.randomPuzzles[this.puzzleCounter];
-        }
-        if(this.puzzleCounter === 4) {
-            console.log(`Játék vége! Elért pontok: ${this.score}`);
         }
       }
   },

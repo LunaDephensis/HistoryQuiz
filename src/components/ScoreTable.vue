@@ -1,10 +1,8 @@
 <template>
-    <section class="score">
-        <Navigation/>
-        <div class="scoreTable">
+    <div class="scoreTable">
             <div class="points">
                 <h3>Helyes válaszok száma:</h3>
-                <span class="counter">10/<span class="point">9</span></span>
+                <span class="counter">5/<span class="point">{{score}}</span></span>
             </div>
             <div class="overview">
                 <h3>Áttekintés</h3>
@@ -77,38 +75,32 @@
             </div>
             <button class="backBtn">Vissza a főoldalra</button>
         </div>
-        <MyFooter/>
-    </section>
 </template>
 
 <script>
 
-import Navigation from '../components/Navigation.vue';
-import MyFooter from '../components/MyFooter.vue';
-
 export default {
-    name: 'Score',
-    components: {
-        Navigation, MyFooter
+    name: 'ScoreTable',
+    props: ['puzzles'],
+    data() {
+        return {
+            score: 0,
+        }
     },
-    
+    mounted() {
+        this.puzzles.forEach((puzzle) => {
+            if(puzzle.userGuess === puzzle.correctIndex) {
+                this.score++;
+            }
+        });
+    }
 }
 
 </script>
 
 <style lang="scss" scoped>
 
-.score {
-    position: relative;
-    width: 100%;
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    background: $dark;
-
-    .scoreTable {
+.scoreTable {
         position: relative;
         width: 100%;
         max-width: 55em;
@@ -380,6 +372,5 @@ export default {
             }
         }
     }
-}
 
 </style>
