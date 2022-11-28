@@ -7,73 +7,26 @@
             <div class="overview">
                 <h3>Áttekintés</h3>
                 <div class="overviewTable">
-                    <div class="puzzle">
-                        <div class="question">
-                            <ion-icon name="star-outline"></ion-icon>
-                            <h4>Melyik csatához kötődik Kapisztrán János neve?</h4>
+                    <div v-for="(puzzle, i) in puzzles" :key="i" class="puzzle">
+                        <div class="question" :class="{correct: puzzle.isWin}">
+                            <div>
+                                <ion-icon v-if="!puzzle.isWin" name="star-outline"></ion-icon>
+                                <ion-icon v-if="puzzle.isWin" name="star"></ion-icon>
+                            </div>
+                            <h4>{{puzzle.question}}</h4>
                         </div>
                         <ul class="answer">
-                            <li class="wrongAnswer"><ion-icon name="close-circle"></ion-icon>Mohácsi vész ( 1526. )</li>
-                            <li class="correctAnswer"><ion-icon name="checkmark-circle"></ion-icon>Nándorfehérvári diadal ( 1456. )</li>
-                        </ul>
-                    </div>
-                    <div class="puzzle">
-                        <div class="question correct">
-                            <ion-icon name="star"></ion-icon>
-                            <h4>Melyik csatához kötődik Kapisztrán János neve?</h4>
-                        </div>
-                        <ul class="answer">
-                            <li class="correctAnswer"><ion-icon name="checkmark-circle"></ion-icon>Nándorfehérvári diadal ( 1456. )</li>
-                        </ul>
-                    </div>
-                    <div class="puzzle">
-                        <div class="question correct">
-                            <ion-icon name="star"></ion-icon>
-                            <h4>Melyik csatához kötődik Kapisztrán János neve?</h4>
-                        </div>
-                        <ul class="answer">
-                            <li class="correctAnswer"><ion-icon name="checkmark-circle"></ion-icon>Nándorfehérvári diadal ( 1456. )</li>
-                        </ul>
-                    </div>
-                    <div class="puzzle">
-                        <div class="question correct">
-                            <ion-icon name="star"></ion-icon>
-                            <h4>Melyik csatához kötődik Kapisztrán János neve?</h4>
-                        </div>
-                        <ul class="answer">
-                            <li class="correctAnswer"><ion-icon name="checkmark-circle"></ion-icon>Nándorfehérvári diadal ( 1456. )</li>
-                        </ul>
-                    </div>
-                    <div class="puzzle">
-                        <div class="question correct">
-                            <ion-icon name="star"></ion-icon>
-                            <h4>Melyik csatához kötődik Kapisztrán János neve?</h4>
-                        </div>
-                        <ul class="answer">
-                            <li class="correctAnswer"><ion-icon name="checkmark-circle"></ion-icon>Nándorfehérvári diadal ( 1456. )</li>
-                        </ul>
-                    </div>
-                    <div class="puzzle">
-                        <div class="question correct">
-                            <ion-icon name="star"></ion-icon>
-                            <h4>Melyik csatához kötődik Kapisztrán János neve?</h4>
-                        </div>
-                        <ul class="answer">
-                            <li class="correctAnswer"><ion-icon name="checkmark-circle"></ion-icon>Nándorfehérvári diadal ( 1456. )</li>
-                        </ul>
-                    </div>
-                    <div class="puzzle">
-                        <div class="question correct">
-                            <ion-icon name="star"></ion-icon>
-                            <h4>Melyik csatához kötődik Kapisztrán János neve?</h4>
-                        </div>
-                        <ul class="answer">
-                            <li class="correctAnswer"><ion-icon name="checkmark-circle"></ion-icon>Nándorfehérvári diadal ( 1456. )</li>
+                            <li :class="{wrongAnswer: !puzzle.isWin, correctAnswer: puzzle.isWin}">
+                                <ion-icon v-if="!puzzle.isWin" name="close-circle">
+                                </ion-icon><ion-icon v-if="puzzle.isWin" name="checkmark-circle"></ion-icon>
+                                {{puzzle.answers[puzzle.userGuess]}}
+                            </li>
+                            <li v-if="!puzzle.isWin" class="correctAnswer"><ion-icon name="checkmark-circle"></ion-icon>{{puzzle.answers[puzzle.correctIndex]}}</li>
                         </ul>
                     </div>
                 </div>
             </div>
-            <button class="backBtn">Vissza a főoldalra</button>
+            <router-link to="/" class="backBtn">Vissza a főoldalra</router-link>
         </div>
 </template>
 
@@ -90,7 +43,11 @@ export default {
     mounted() {
         this.puzzles.forEach((puzzle) => {
             if(puzzle.userGuess === puzzle.correctIndex) {
+                puzzle.isWin = true;
                 this.score++;
+            }
+            else {
+                puzzle.isWin = false;
             }
         });
     }
@@ -151,7 +108,7 @@ export default {
 
             .counter {
                 font-size: 6em;
-                color: $mainHover;
+                color: $main;
                 font-weight: 600;
 
                 @include mobile {
@@ -208,7 +165,7 @@ export default {
                         display: flex;
                         justify-content: flex-start;
                         align-items: center;
-                        text-align: center;
+                        text-align: start;
                         margin-bottom: 0.5em;
                         border-radius: 0.3em;
                         overflow: hidden;
@@ -232,6 +189,8 @@ export default {
 
                         ion-icon {
                             font-size: 1.5em;
+                            min-height: 21px;
+                            min-width: 21px;
                             margin-right: 1em;
                             color: rgba(255,255,255,0.2);
 
@@ -292,6 +251,8 @@ export default {
                             }
 
                             ion-icon {
+                                min-height: 1.4em;
+                                min-width: 20px;
                                 font-size: 1.4em;
                                 margin-right: 1em;
 
@@ -325,6 +286,8 @@ export default {
             position: relative;
             border: none;
             outline: none;
+            text-decoration: none;
+            color: $white;
             font-family: 'Cormorant Garamond', serif;
             text-transform: uppercase;
             letter-spacing: 0.06em;
@@ -338,14 +301,6 @@ export default {
 
             @include mobile {
                 font-size: 1em;
-            }
-
-            span {
-                font-family: 'Cormorant Garamond', serif;
-                font-weight: 800;
-                position: relative;
-                color: $dark;
-                z-index: 10000;
             }
 
             &:before {
@@ -362,9 +317,6 @@ export default {
             }
 
             &:hover {
-                span {
-                color: $white;
-                }
 
                 &::before {
                 transform: scale(1);
