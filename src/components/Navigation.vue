@@ -1,6 +1,6 @@
 <template>
     <nav>
-      <span class="logo"><span>H</span>istory <span>Q</span>uiz</span>
+      <router-link to="/" class="logo"><span>H</span>istory <ion-icon name="flash-sharp"></ion-icon> <span>Q</span>uiz</router-link>
       <a href="#" class="stars"><img src="/images/shield.png" alt="stars"></a>
     </nav>
 </template>
@@ -27,12 +27,23 @@ nav {
 
     .logo {
       font-family: 'Cormorant Garamond', serif;
+      text-decoration: none;
       text-transform: uppercase;
       font-weight: 700;
       font-size: 1.1em;
       letter-spacing: 0.2em;
       cursor: pointer;
       color: $main;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      ion-icon {
+        font-size: 0.8em;
+        color: $star;
+        margin: 0 0.2em;
+        opacity: 0.8;
+      }
 
       span {
         font-size: 1.6em;

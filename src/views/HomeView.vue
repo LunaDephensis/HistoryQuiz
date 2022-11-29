@@ -42,7 +42,7 @@ export default {
       topics: [
         {
           title: "Ókori birodalmak",
-          picture: "/images/okor.jpg",
+          picture: "/images/okor2zn.png",
           id: 0,
           isActive: false
         },
@@ -54,7 +54,7 @@ export default {
         },
         {
           title: "20. század",
-          picture: "/images/lullabyzn11.png",
+          picture: "/images/century20.jpg",
           id: 2,
           isActive: false
         }
@@ -163,7 +163,7 @@ export default {
           display: flex;
           justify-content: center;
           align-items: center;
-          border-radius: 2.5em 2.5em 17.5em 17.5em;
+          border-radius: 1.5em 1.5em 17.5em 17.5em;
           
           /*background-repeat: no-repeat;
           background-size: cover;
@@ -186,7 +186,7 @@ export default {
             left: 0;
             width: 100%;
             height: 100%;
-            border-radius: 2.5em 2.5em 17.5em 17.5em;
+            border-radius: 1.5em 1.5em 17.5em 17.5em;
             background: #fff;
             opacity: 0.2;
             transition: 0.3s ease-in-out;
