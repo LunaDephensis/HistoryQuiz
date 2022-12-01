@@ -179,9 +179,17 @@ export default {
                 justify-content: center;
                 align-items: center;
 
+                @include mobile {
+                    font-size: 1.3em;
+                }
+
                 img {
                     max-width: 2em;
                     margin: 0 1em;
+
+                    @include mobile {
+                        margin: 0 0.3em;
+                    }
                 }
             }
 
@@ -193,10 +201,19 @@ export default {
                 justify-content: center;
                 align-items: center;
 
+                @include mobile {
+                    font-size: 0.8em;
+                    letter-spacing: normal;
+                }
+
                 ion-icon {
                     margin: 0 0.3em;
                     font-size: 1.5em;
                     color: $star;
+
+                    @include mobile {
+                        margin: 0 0.2em;
+                    }
                 }
             }
             .stars {
@@ -206,6 +223,16 @@ export default {
                 justify-content: center;
                 align-items: flex-start;
 
+                @include tabletS {
+                    justify-content: space-between;
+                }
+
+                @include mobile {
+                    justify-content: center;
+                    align-items: center;
+                    flex-direction: column;
+                }
+
                 .allStars {
                     position: relative;
                     display: flex;
@@ -213,6 +240,14 @@ export default {
                     align-items: center;
                     flex-direction: column;
                     margin-right: 8em;
+
+                    @include tabletS {
+                        margin-right: 0;
+                    }
+
+                    @include mobile {
+                        margin-bottom: 1.5em;
+                    }
 
                     h4 {
                         display: flex;
@@ -259,9 +294,18 @@ export default {
                             justify-content: flex-start;
                             align-items: center;
 
+                            @include mobile {
+                                padding: 0 0.5em;
+                                border-bottom: 0.06em solid rgba(255,255,255,0.1);
+                            }
+
                             .score {
                                 color: $mainHover;
                                 font-weight: 700;
+
+                                @include mobile {
+                                    font-size: 1.3em;
+                                }
                             }
 
                             ion-icon {
@@ -269,6 +313,12 @@ export default {
                                 font-size: 1.1em;
                                 margin-left: 0.3em;
                                 margin-right: 0.8em;
+
+                                @include mobile {
+                                    font-size: 1.3em;
+                                    margin-left: 0.5em;
+                                    margin-right: 1.5em;
+                                }
                             }
 
                             .date {
@@ -283,13 +333,22 @@ export default {
         .medals {
             position: relative;
             width: 100%;
-            display: flex;
+            display: grid;
+            grid-template-columns: repeat(auto-fill, 12em);
             justify-content: space-between;
-            align-items: flex-start;
-            flex-wrap: wrap;
-            gap: 1em;
-            
+            grid-gap: 1em;
 
+            @include tabletS {
+                justify-content: space-evenly;
+            }
+
+            @include mobile {
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                flex-direction: column;
+            }
+            
             .medalBox {
                 position: relative;
                 display: flex;
@@ -300,8 +359,12 @@ export default {
                 width: 12em;
                 height: 15em;
 
+                @include mobile {
+                    width: 100%;
+                }
+
                 &:last-child {
-                    margin-bottom: 3em;
+                    margin-bottom: 4em;
                 }
                 
                 &::before {
@@ -346,15 +409,21 @@ export default {
                 }
 
                 h4 {
-                    color: $mainHover;
-                    margin-bottom: 0.3em;
+                    color: $white;
+                    margin: 0.3em 0;
+                   /* font-family: 'Cormorant Garamond', serif;
+                    font-size: 1.2em;
+                    text-transform: uppercase;
+                    letter-spacing: 0.05em;*/
                 }
 
                 p {
                     font-size: 0.9em;
+                    font-weight: 400;
                     display: flex;
                     justify-content: center;
                     align-items: center;
+                    color: $mainHover;
 
                     ion-icon {
                         margin: 0 0.2em;

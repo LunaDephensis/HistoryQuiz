@@ -1,7 +1,7 @@
 <template>
     <nav>
       <router-link to="/" class="logo"><span>H</span>istory <ion-icon name="flash-sharp"></ion-icon> <span>Q</span>uiz</router-link>
-      <a href="#" class="stars"><img src="/images/shield.png" alt="stars"></a>
+      <router-link to="/achievements" class="stars"><img src="/images/shield.png" alt="stars"></router-link>
     </nav>
 </template>
 
