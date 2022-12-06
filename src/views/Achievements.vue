@@ -12,36 +12,17 @@
                 <div class="stars">
                     <div class="allStars">
                         <h4>Eddig szerzett összes <ion-icon name="star"></ion-icon>:</h4>
-                        <span>16</span>
+                        <span>{{ allStars }}</span>
                     </div>
                     <div class="lastStars">
                         <h4>Legutóbbi eredményeid:</h4>
                         <ul>
-                            <li>
-                                <span class="score">5</span>
+                            <li v-for="(star, i) in lastStars" :key="i">
+                                <span class="score">{{ star.score }}</span>
                                 <ion-icon name="star"></ion-icon>
-                                <span class="date">2022.11.29. 10:11</span>
+                                <span class="date">{{ star.date }}</span>
                             </li>
-                            <li>
-                                <span class="score">4</span>
-                                <ion-icon name="star"></ion-icon>
-                                <span class="date">2022.11.29. 09:45</span>
-                            </li>
-                            <li>
-                                <span class="score">5</span>
-                                <ion-icon name="star"></ion-icon>
-                                <span class="date">2022.11.29. 09:38</span>
-                            </li>
-                            <li>
-                                <span class="score">3</span>
-                                <ion-icon name="star"></ion-icon>
-                                <span class="date">2022.11.29. 09:19</span>
-                            </li>
-                            <li>
-                                <span class="score">3</span>
-                                <ion-icon name="star"></ion-icon>
-                                <span class="date">2022.11.29. 09:12</span>
-                            </li>
+                            
                         </ul>
                     </div>
                 </div>
@@ -104,6 +85,24 @@ export default {
     name: 'Achievements',
     components: {
         Navigation, MyFooter
+    },
+    data() {
+        return {
+            allStars: 0,
+            lastStars: []
+        }
+    },
+    created() {
+        if(localStorage.getItem('allStars')) {
+            this.allStars = Number(localStorage.getItem('allStars'));
+        }
+        
+    },
+    mounted() {
+        if(localStorage.getItem('lastStars')) {
+            this.lastStars = JSON.parse(localStorage.getItem('lastStars'));
+        }
+        console.log(this.lastStars);
     }
 }
 
@@ -293,10 +292,10 @@ export default {
                             display: flex;
                             justify-content: flex-start;
                             align-items: center;
+                            border-bottom: 0.06em solid rgba(255,255,255,0.1);
 
                             @include mobile {
                                 padding: 0 0.5em;
-                                border-bottom: 0.06em solid rgba(255,255,255,0.1);
                             }
 
                             .score {

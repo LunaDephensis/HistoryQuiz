@@ -38,6 +38,8 @@ export default {
     data() {
         return {
             score: 0,
+            allStars: 0,
+            lastStars: []
         }
     },
     mounted() {
@@ -50,6 +52,42 @@ export default {
                 puzzle.isWin = false;
             }
         });
+        if(localStorage.getItem('allStars')) {
+            this.allStars = Number(localStorage.getItem('allStars'));
+            this.allStars += this.score;
+            localStorage.setItem('allStars', this.allStars);
+        }
+        else {
+            this.allStars += this.score;
+            localStorage.setItem('allStars', this.allStars);
+        }
+        if(localStorage.getItem('lastStars')) {
+            this.lastStars = JSON.parse(localStorage.getItem('lastStars'));
+            let now = new Date();
+            if(this.lastStars.length === 5) {
+                this.lastStars.pop();
+                this.lastStars.unshift({
+                    score: this.score,
+                    date: now
+                });
+                localStorage.setItem('lastStars', JSON.stringify(this.lastStars));
+            }
+            else {
+                this.lastStars.unshift({
+                    score: this.score,
+                    date: now
+                });
+                localStorage.setItem('lastStars', JSON.stringify(this.lastStars));
+            }
+        }
+        else {
+            let now = new Date();
+            this.lastStars.push({
+                score: this.score,
+                date: now
+            });
+            localStorage.setItem('lastStars', JSON.stringify(this.lastStars));
+        }
     }
 }
 

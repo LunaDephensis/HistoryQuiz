@@ -48,7 +48,7 @@ export default {
         },
         {
           title: "Királyok és lovagok",
-          picture: "/images/image.png",
+          picture: "/images/knight1zn.png",
           id: 1,
           isActive: false
         },
