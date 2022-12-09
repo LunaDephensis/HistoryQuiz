@@ -29,48 +29,15 @@
                 
             </div>
             <div class="medals">
-                <div class="medalBox">
+                <div class="medalBox" v-for="achie in achies" :key="achie.id"
+                    :class="{'locked': checkLock(achie.id)}">
                     <div class="medal">
-                        <img src="/images/okor2zn.png" alt="medal">
+                        <img :src="achie.picture" alt="medal">
                     </div>
-                    <h4>Felfedező</h4>
-                    <p>Gratulálok az első játékodhoz!</p>
+                    <h4>{{achie.name}}</h4>
+                    <p v-html="achie.desc"></p>
                 </div>
-                <div class="medalBox locked">
-                    <div class="medal">
-                        <img src="/images/okor2zn.png" alt="medal">
-                    </div>
-                    <h4>Fáraó</h4>
-                    <p>Hibátlan játékért az Ókori birodalmak témakörben.</p>
-                </div>
-                <div class="medalBox locked">
-                    <div class="medal">
-                        <img src="/images/okor2zn.png" alt="medal">
-                    </div>
-                    <h4>Lovag</h4>
-                    <p>Hibátlan játékért a Királyok és lovagok témakörben.</p>
-                </div>
-                <div class="medalBox locked">
-                    <div class="medal">
-                        <img src="/images/okor2zn.png" alt="medal">
-                    </div>
-                    <h4>Rakétavető</h4>
-                    <p>Hibátlan játékért a 20. század témakörben.</p>
-                </div>
-                <div class="medalBox locked">
-                    <div class="medal">
-                        <img src="/images/okor2zn.png" alt="medal">
-                    </div>
-                    <h4>Kódex</h4>
-                    <p>20 <span><ion-icon name="star"></ion-icon></span> megszerzéséért.</p>
-                </div>
-                <div class="medalBox locked">
-                    <div class="medal">
-                        <img src="/images/okor2zn.png" alt="medal">
-                    </div>
-                    <h4>Játékmester</h4>
-                    <p>40 <span><ion-icon name="star"></ion-icon></span> megszerzéséért.</p>
-                </div>
+                
             </div>
         </div>
         <MyFooter/>
@@ -80,6 +47,7 @@
 <script>
 import Navigation from '../components/Navigation.vue';
 import MyFooter from '../components/MyFooter.vue';
+import achievements from '../achievements.js';
 
 export default {
     name: 'Achievements',
@@ -89,14 +57,23 @@ export default {
     data() {
         return {
             allStars: 0,
-            lastStars: []
+            lastStars: [],
+            achies: achievements
+        }
+    },
+    methods: {
+        checkLock(id) {
+            let lock = JSON.parse(localStorage.getItem(id));
+            if(lock === null) {
+                return true;
+            }
+            return lock;
         }
     },
     created() {
         if(localStorage.getItem('allStars')) {
             this.allStars = Number(localStorage.getItem('allStars'));
         }
-        
     },
     mounted() {
         if(localStorage.getItem('lastStars')) {

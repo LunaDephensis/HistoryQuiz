@@ -31,6 +31,7 @@
 </template>
 
 <script>
+import achievements from '../achievements.js';
 
 export default {
     name: 'ScoreTable',
@@ -88,6 +89,18 @@ export default {
             });
             localStorage.setItem('lastStars', JSON.stringify(this.lastStars));
         }
+        let gameOverview = {
+            lastStars: this.lastStars,
+            topicId: Number(this.$route.params.topicId),
+            score: this.score,
+            allStars: this.allStars
+        };
+
+        achievements.forEach((achie) => {
+            if(JSON.parse(localStorage.getItem(achie.id)) !== false) {
+                localStorage.setItem(achie.id, achie.isLocked(gameOverview));
+            }
+        });
     }
 }
 
