@@ -1,9 +1,40 @@
 <template>
     <nav>
       <router-link to="/" class="logo"><span>H</span>istory <ion-icon name="flash-sharp"></ion-icon> <span>Q</span>uiz</router-link>
-      <router-link to="/achievements" class="stars"><img src="/images/shield.png" alt="stars"></router-link>
+      <router-link to="/achievements" class="stars" :class="{active: isNewAchie}"
+        @click="removeAchieNotification()">
+          <img src="/images/shield.png" alt="stars">
+      </router-link>
     </nav>
 </template>
+
+<script>
+import { useAchieNotification } from '../stores/achieNotification';
+
+export default {
+  name: 'Navigation',
+  setup() {
+    const store = useAchieNotification();
+    return { store }
+  },
+  data() {
+    return {
+      
+    }
+  },
+  methods: {
+    removeAchieNotification() {
+      this.store.removeNotification();
+    }
+  },
+  computed: {
+    isNewAchie() {
+      return this.store.newAchie
+    }
+  }
+}
+
+</script>
 
 <style lang="scss" scoped>
 
@@ -55,8 +86,16 @@ nav {
     .stars {
       position: relative;
       text-decoration: none;
-      max-width: 2.5em;
+      width: 2.5em;
       transition: 0.3s ease-in-out;
+      border: 0.03em solid transparent;
+
+      &.active {
+        border-radius: 50%;
+        border: 0.03em solid $glowingBorder;
+        box-shadow: 0 0 0.6em $glow,
+                    inset 0 0 0.2em $glowInset;
+      }
 
       @include mobile {
         position: fixed;

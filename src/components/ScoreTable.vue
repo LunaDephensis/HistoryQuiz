@@ -32,10 +32,15 @@
 
 <script>
 import achievements from '../achievements.js';
+import { useAchieNotification } from '../stores/achieNotification';
 
 export default {
     name: 'ScoreTable',
     props: ['puzzles'],
+    setup() {
+        const store = useAchieNotification();
+        return { store }
+    },
     data() {
         return {
             score: 0,
@@ -99,6 +104,9 @@ export default {
         achievements.forEach((achie) => {
             if(JSON.parse(localStorage.getItem(achie.id)) !== false) {
                 localStorage.setItem(achie.id, achie.isLocked(gameOverview));
+                if(JSON.parse(localStorage.getItem(achie.id)) === false) {
+                    this.store.addNewAchie();
+                }
             }
         });
     }
