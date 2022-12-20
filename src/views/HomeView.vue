@@ -2,6 +2,7 @@
   <section class="home">
     <Navigation/>
     <div class="mainContent">
+      <h3>Válassz egy témakört, majd kattints a Játék indítása gombra!</h3>
       <div class="timeLine">
         <div class="periodBox" 
               v-for="topic in topics" :key="topic.id">
@@ -107,6 +108,14 @@ export default {
     align-items: center;
     flex-direction: column;
     padding: 3.1em 8em;
+    padding-top: 0;
+
+    h3 {
+      margin-bottom: 1.5em;
+      font-weight: 400;
+      color: $mainHover;
+      text-align: center;
+    }
 
     @include tablet {
       padding: 1.5em 3.1em;
@@ -164,10 +173,6 @@ export default {
           justify-content: center;
           align-items: center;
           border-radius: 1.5em 1.5em 17.5em 17.5em;
-          
-          /*background-repeat: no-repeat;
-          background-size: cover;
-          background-position: center;*/
           z-index: 100;
           transition: 0.3s ease-in-out;
           cursor: pointer;

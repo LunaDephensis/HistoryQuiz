@@ -5,7 +5,7 @@
             <div class="question">
                 <h2>{{actualPuzzle.question}}</h2>
                 <div class="timerBar">
-                    <div></div>
+                    <div class="leftTime" :style="{width: leftWidth + '%'}"></div>
                 </div>
             </div>
             <ul class="answers">
@@ -35,7 +35,11 @@ export default {
           actualPuzzle: undefined,
           puzzleCounter: 0,
           randomPuzzles: [],
-          isActiveScoreTable: false
+          isActiveScoreTable: false,
+          allTime: 60,
+          leftTime: 60,
+          fullWidth: 100,
+          leftWidth: 100
       }
   },
   methods: {
@@ -50,6 +54,22 @@ export default {
             console.log(this.puzzleCounter);
             console.log("belépett");
             this.actualPuzzle = this.randomPuzzles[this.puzzleCounter];
+        }
+      },
+      timeCounter() {
+        let timeKeeper = setInterval(() => {
+            if(this.leftTime === 0) {
+                this.leftTime = 60;
+                this.leftWidth = 100;
+            }
+            else {
+                this.leftTime -= 1;
+                console.log(this.leftTime);
+                this.leftWidth = this.leftTime * this.fullWidth / this.allTime;
+            }
+        }, 1000);
+        if(this.puzzleCounter === 4) {
+            clearInterval(timeKeeper);
         }
       }
   },
@@ -68,6 +88,7 @@ export default {
           return randomIndexes.includes(i);
       });
       this.actualPuzzle = this.randomPuzzles[this.puzzleCounter];
+      this.timeCounter();
   }
 }
 
@@ -142,6 +163,23 @@ export default {
 
                 @include mobile {
                     font-size: 1em;
+                }
+            }
+
+            .timerBar {
+                position: absolute;
+                bottom: 0;
+                left: 0;
+                width: 100%;
+                height: 0.8em;
+                background: $timer;
+                text-align: right;
+
+                .leftTime {
+                    position: relative;
+                    height: 100%;
+                    background: $shield;
+                    z-index: 100000;
                 }
             }
         }

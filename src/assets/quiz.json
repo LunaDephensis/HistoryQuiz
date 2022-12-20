@@ -140,7 +140,7 @@
     {
         "question": "Mit jelöltek a patricius és plebejus kifejezések az ókori Rómában?",
         "answers": ["vallási vezetőket", "társadalmi rétegeket", "katonai rangokat"],
-        "correctIndex": 2,
+        "correctIndex": 1,
         "topicId": 0 
     },
     {
