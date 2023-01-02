@@ -39,14 +39,17 @@ export default {
           allTime: 60,
           leftTime: 60,
           fullWidth: 100,
-          leftWidth: 100
+          leftWidth: 100,
+          timeKeeper: undefined
       }
   },
   methods: {
       nextPuzzle(index) {
         this.actualPuzzle.userGuess = index;
+        clearInterval(this.timeKeeper);
+        this.leftTime = 60;
+        this.leftWidth = 100;
         if(this.puzzleCounter === 4) {
-            console.log(`Játék vége! Elért pontok: ${this.score}`);
             this.isActiveScoreTable = true;
         }
         else {
@@ -54,13 +57,13 @@ export default {
             console.log(this.puzzleCounter);
             console.log("belépett");
             this.actualPuzzle = this.randomPuzzles[this.puzzleCounter];
+            this.timeCounter();
         }
       },
       timeCounter() {
-        let timeKeeper = setInterval(() => {
+        this.timeKeeper = setInterval(() => {
             if(this.leftTime === 0) {
-                this.leftTime = 60;
-                this.leftWidth = 100;
+                this.nextPuzzle(-1);
             }
             else {
                 this.leftTime -= 1;
@@ -68,9 +71,6 @@ export default {
                 this.leftWidth = this.leftTime * this.fullWidth / this.allTime;
             }
         }, 1000);
-        if(this.puzzleCounter === 4) {
-            clearInterval(timeKeeper);
-        }
       }
   },
   created() {
@@ -89,6 +89,9 @@ export default {
       });
       this.actualPuzzle = this.randomPuzzles[this.puzzleCounter];
       this.timeCounter();
+  },
+  unmounted() {
+    clearInterval(this.timeKeeper);
   }
 }
 
@@ -180,6 +183,7 @@ export default {
                     height: 100%;
                     background: $shield;
                     z-index: 100000;
+                    transition: 1s linear;
                 }
             }
         }
