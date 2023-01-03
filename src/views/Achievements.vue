@@ -20,7 +20,7 @@
                             <li v-for="(star, i) in lastStars" :key="i">
                                 <span class="score">{{ star.score }}</span>
                                 <ion-icon name="star"></ion-icon>
-                                <span class="date">{{ star.date }}</span>
+                                <span class="date">{{ new Date(star.date).toLocaleString()}}</span>
                             </li>
                             
                         </ul>
