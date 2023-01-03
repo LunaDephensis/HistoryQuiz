@@ -17,9 +17,11 @@
                         </div>
                         <ul class="answer">
                             <li :class="{wrongAnswer: !puzzle.isWin, correctAnswer: puzzle.isWin}">
-                                <ion-icon v-if="!puzzle.isWin" name="close-circle">
-                                </ion-icon><ion-icon v-if="puzzle.isWin" name="checkmark-circle"></ion-icon>
+                                <ion-icon v-if="!puzzle.isWin && puzzle.userGuess !== -1" name="close-circle"></ion-icon>
+                                <ion-icon v-if="puzzle.userGuess === -1" class="timeoutIcon" name="alert-circle"></ion-icon>
+                                <ion-icon v-if="puzzle.isWin" name="checkmark-circle"></ion-icon>
                                 {{puzzle.answers[puzzle.userGuess]}}
+                                <span v-if="puzzle.userGuess === -1" >Lejárt az időd!</span>
                             </li>
                             <li v-if="!puzzle.isWin" class="correctAnswer"><ion-icon name="checkmark-circle"></ion-icon>{{puzzle.answers[puzzle.correctIndex]}}</li>
                         </ul>
@@ -314,6 +316,10 @@ export default {
                                 min-width: 20px;
                                 font-size: 1.4em;
                                 margin-right: 1em;
+
+                                &.timeoutIcon {
+                                    color: $timeout;
+                                }
 
                                 @include mobile {
                                     margin-right: 0.5em;

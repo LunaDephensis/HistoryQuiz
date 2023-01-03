@@ -4,8 +4,11 @@
         <li><a href="#"><ion-icon name="logo-github"></ion-icon></a></li>
         <li><a href="#"><ion-icon name="logo-linkedin"></ion-icon></a></li>
       </ul>
-      <span class="codeBy">Code by <a href="#">Zámbó Nikolett</a></span>
-      <span class="links">icons from: <a href="#"><ion-icon name="logo-ionic"></ion-icon></a></span>
+      <span class="codeBy">Code and pictures by <a href="#">Zámbó Nikolett</a></span>
+      <span class="links">icons:
+          <a target="_blank" href="https://ionic.io/ionicons"><ion-icon name="logo-ionic"></ion-icon></a>
+          <a target="_blank" href="https://www.flaticon.com/authors/freepik"><img src="/images/freepik.png" alt="freepik icon"></a>
+      </span>
     </footer>
 </template>
 
@@ -80,6 +83,7 @@ footer {
 
       a {
         text-decoration: none;
+        text-align: center;
         font-size: 1em;
         font-weight: 800;
         color: $main;
@@ -99,14 +103,23 @@ footer {
 
       a {
         text-decoration: none;
-        margin-left: 1em;
+        margin-left: 0.5em;
 
         ion-icon {
-          font-size: 1.5em;
+          font-size: 1.3em;
           color: $main;
 
           &:hover {
             color: $mainHover;
+          }
+        }
+
+        img {
+          max-width: 1.3em;
+          filter: invert(38%) sepia(56%) saturate(268%) hue-rotate(176deg) brightness(96%) contrast(83%);
+
+          &:hover {
+            filter: invert(70%) sepia(42%) saturate(280%) hue-rotate(177deg) brightness(89%) contrast(90%);
           }
         }
       }
