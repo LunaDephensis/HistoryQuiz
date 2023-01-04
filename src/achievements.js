@@ -27,10 +27,10 @@ export default [
         }
     },
     {
-        id: 'raketaveto',
-        name: 'Rakétavető',
+        id: 'golyoszoro',
+        name: 'Golyószóró',
         desc: 'Hibátlan játékért a 20. század témakörben.',
-        picture: '/images/knight1zn.png',
+        picture: '/images/century20zn1.png',
         isLocked: (gameOverview) => {
             return !(gameOverview.topicId === 2 && gameOverview.score === 5);
         }
@@ -48,7 +48,7 @@ export default [
         id: 'jatekmester',
         name: 'Játékmester',
         desc: '40 <span><ion-icon name="star" style="margin: 0 0.2em; color: #fff3bd; opacity: 0.7;"></ion-icon></span> megszerzéséért.',
-        picture: '/images/knight1zn.png',
+        picture: '/images/century20zn1.png',
         isLocked: (gameOverview) => {
             return gameOverview.allStars < 40;
         }

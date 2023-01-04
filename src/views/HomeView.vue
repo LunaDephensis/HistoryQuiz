@@ -55,7 +55,7 @@ export default {
         },
         {
           title: "20. század",
-          picture: "/images/century20.jpg",
+          picture: "/images/century20zn1.png",
           id: 2,
           isActive: false
         }
@@ -173,6 +173,7 @@ export default {
           justify-content: center;
           align-items: center;
           border-radius: 1.5em 1.5em 17.5em 17.5em;
+          border: 0.06em solid rgba(255,255,255,0.1);
           z-index: 100;
           transition: 0.3s ease-in-out;
           cursor: pointer;
@@ -184,27 +185,11 @@ export default {
             margin-bottom: 2em;
           }
 
-          &::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            border-radius: 1.5em 1.5em 17.5em 17.5em;
-            background: #fff;
-            opacity: 0.2;
-            transition: 0.3s ease-in-out;
-          }
-
           &:hover,
           &.active {
             transform: scale(1.15);
             box-shadow: 0.06em 1.2em 1.2em 0.3em rgba(0,0,0,0.1);
-
-            &::after {
-              opacity: 0;
-            }
+            border: 0.06em solid rgba(144, 172, 214, 0.7);
           }
         }
 
