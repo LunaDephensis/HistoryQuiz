@@ -22,7 +22,7 @@
                                 <ion-icon name="star"></ion-icon>
                                 <span class="date">{{ new Date(star.date).toLocaleString()}}</span>
                             </li>
-                            
+                            <li v-if="lastStars.length === 0">Még nincsenek eredményeid.</li>
                         </ul>
                     </div>
                 </div>
@@ -70,16 +70,20 @@ export default {
             return lock;
         }
     },
-    created() {
+    /*created() {
         if(localStorage.getItem('allStars')) {
             this.allStars = Number(localStorage.getItem('allStars'));
         }
-    },
+    },*/
     mounted() {
-        if(localStorage.getItem('lastStars')) {
-            this.lastStars = JSON.parse(localStorage.getItem('lastStars'));
+        let getAllStars = localStorage.getItem('allStars');
+        let getLastStars = localStorage.getItem('lastStars');
+        if(getAllStars) {
+            this.allStars = Number(getAllStars);
         }
-        console.log(this.lastStars);
+        if(getLastStars) {
+            this.lastStars = JSON.parse(getLastStars);
+        }
     }
 }
 

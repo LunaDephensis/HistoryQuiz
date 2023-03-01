@@ -7,7 +7,7 @@
         <div class="periodBox" 
               v-for="topic in topics" :key="topic.id">
           <div class="period"
-                :class="{active: topic.isActive}"
+                :class="{active: choosedTopicId === topic.id}"
                 :style="{background: 'url('+topic.picture+')',
                 'background-repeat': 'no-repeat',
                 'background-size': 'cover',
@@ -44,20 +44,17 @@ export default {
         {
           title: "Ókori birodalmak",
           picture: "/images/okor2zn.png",
-          id: 0,
-          isActive: false
+          id: 0
         },
         {
           title: "Királyok és lovagok",
           picture: "/images/knight01zn.png",
-          id: 1,
-          isActive: false
+          id: 1
         },
         {
           title: "20. század",
           picture: "/images/century20zn1.png",
-          id: 2,
-          isActive: false
+          id: 2
         }
       ],
       choosedTopicId: undefined,
@@ -66,19 +63,11 @@ export default {
   },
   methods: {
     topicChoosing(actualTopic) {
-      this.topics.forEach((topic) => {
-        if(actualTopic.id === topic.id) {
-          topic.isActive = true;
-          this.choosedTopicId = topic.id;
+          this.choosedTopicId = actualTopic.id;
           this.isActivePlayButton = true;
-        }
-        else {
-          topic.isActive = false;
-        }
-      });
     },
     launchQuiz() {
-      if(this.choosedTopicId !== undefined) {
+      if(this.isActivePlayButton) {
         this.$router.push({path: `/quiz/${this.choosedTopicId}`});
       }
     }
