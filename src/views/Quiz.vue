@@ -1,6 +1,5 @@
 <template>
     <section class="quiz">
-        <Navigation/>
         <div class="quizBox" v-if="!isActiveScoreTable">
             <div class="question">
                 <h2>{{actualPuzzle.question}}</h2>
@@ -14,7 +13,6 @@
             </ul>
         </div>
         <ScoreTable v-if="isActiveScoreTable" :puzzles="randomPuzzles" />
-        <MyFooter/>
     </section>
 </template>
 
@@ -102,7 +100,7 @@ export default {
 .quiz {
     position: relative;
     width: 100%;
-    min-height: 100vh;
+    min-height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;

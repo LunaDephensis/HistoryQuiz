@@ -1,6 +1,5 @@
 <template>
   <section class="home">
-    <Navigation/>
     <div class="mainContent">
       <h3>Válassz egy témakört, majd kattints a Játék indítása gombra!</h3>
       <div class="timeLine">
@@ -24,7 +23,6 @@
                 <span>Játék indítása</span>
       </button>
     </div>
-    <MyFooter/>
   </section>
 </template>
 
@@ -81,12 +79,13 @@ export default {
 .home {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  min-height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
   flex-direction: column;
   background: $dark;
+  margin-bottom: 1em;
 
   .mainContent {
     position: relative;
@@ -166,7 +165,7 @@ export default {
           z-index: 100;
           transition: 0.3s ease-in-out;
           cursor: pointer;
-          margin-bottom: 2.5em;
+          margin-bottom: 1.3em;
           box-shadow: 0.06em 0.6em 0.6em 0.3em rgba(0,0,0,0.1);
 
           @include tabletS {

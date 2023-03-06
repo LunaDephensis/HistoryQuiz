@@ -1,6 +1,5 @@
 <template>
     <section class="achievements">
-        <Navigation/>
         <div class="table">
             <div class="scores">
                 <h2>
@@ -40,7 +39,6 @@
                 
             </div>
         </div>
-        <MyFooter/>
     </section>
 </template>
 
@@ -70,11 +68,6 @@ export default {
             return lock;
         }
     },
-    /*created() {
-        if(localStorage.getItem('allStars')) {
-            this.allStars = Number(localStorage.getItem('allStars'));
-        }
-    },*/
     mounted() {
         let getAllStars = localStorage.getItem('allStars');
         let getLastStars = localStorage.getItem('lastStars');
@@ -94,7 +87,7 @@ export default {
 .achievements {
     position: relative;
     width: 100%;
-    min-height: 100vh;
+    min-height: 100%;
     display: flex;
     justify-content: center;
     align-items: center;

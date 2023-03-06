@@ -1,10 +1,22 @@
-<script setup>
-import { RouterLink, RouterView } from 'vue-router'
+<script>
+import { RouterView } from 'vue-router';
+import Navigation from './components/Navigation.vue';
+import MyFooter from './components/MyFooter.vue';
+
+export default {
+  components: {
+    Navigation, MyFooter
+  }
+}
 </script>
 
 <template>
-
-  <RouterView />
+  <div id="mainContainer">
+    <Navigation/>
+    <RouterView />
+    <MyFooter/>
+  </div>
+  
 </template>
 
 <style lang="scss">
@@ -29,6 +41,17 @@ import { RouterLink, RouterView } from 'vue-router'
 
 .oswald {
   font-family: 'Oswald', sans-serif;
+}
+
+#mainContainer {
+  position: relative;
+  min-height: 100vh;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background: $dark;
 }
 
 @media (min-width: 1024px) {
