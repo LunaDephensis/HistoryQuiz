@@ -52,8 +52,6 @@ export default {
         }
         else {
             this.puzzleCounter++;
-            console.log(this.puzzleCounter);
-            console.log("belépett");
             this.actualPuzzle = this.randomPuzzles[this.puzzleCounter];
             this.timeCounter();
         }
@@ -65,7 +63,6 @@ export default {
             }
             else {
                 this.leftTime -= 1;
-                console.log(this.leftTime);
                 this.leftWidth = this.leftTime * this.fullWidth / this.allTime;
             }
         }, 1000);
@@ -82,8 +79,8 @@ export default {
             randomIndexes.push(num);
         }
       }
-      this.randomPuzzles = puzzles.filter((puzzle, i) => {
-          return randomIndexes.includes(i);
+      randomIndexes.forEach((randomIndex) => {
+        this.randomPuzzles.push(puzzles[randomIndex]);
       });
       this.actualPuzzle = this.randomPuzzles[this.puzzleCounter];
       this.timeCounter();

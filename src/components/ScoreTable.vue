@@ -60,42 +60,38 @@ export default {
                 puzzle.isWin = false;
             }
         });
-        if(localStorage.getItem('allStars')) {
-            this.allStars = Number(localStorage.getItem('allStars'));
+
+        let storedAllStars = localStorage.getItem('allStars');
+        let storedLastStars = localStorage.getItem('lastStars');
+
+        if(storedAllStars) {
+            this.allStars = Number(storedAllStars);
             this.allStars += this.score;
-            localStorage.setItem('allStars', this.allStars);
         }
         else {
             this.allStars += this.score;
-            localStorage.setItem('allStars', this.allStars);
         }
-        if(localStorage.getItem('lastStars')) {
-            this.lastStars = JSON.parse(localStorage.getItem('lastStars'));
-            let now = new Date();
+        localStorage.setItem('allStars', this.allStars);
+
+        let newStar = {
+            score: this.score,
+            date: new Date()
+        };
+
+        if(storedLastStars) {
+            this.lastStars = JSON.parse(storedLastStars);
+
             if(this.lastStars.length === 5) {
                 this.lastStars.pop();
-                this.lastStars.unshift({
-                    score: this.score,
-                    date: now
-                });
-                localStorage.setItem('lastStars', JSON.stringify(this.lastStars));
             }
-            else {
-                this.lastStars.unshift({
-                    score: this.score,
-                    date: now
-                });
-                localStorage.setItem('lastStars', JSON.stringify(this.lastStars));
-            }
+
+            this.lastStars.unshift(newStar);
         }
         else {
-            let now = new Date();
-            this.lastStars.push({
-                score: this.score,
-                date: now
-            });
-            localStorage.setItem('lastStars', JSON.stringify(this.lastStars));
+            this.lastStars.push(newStar);
         }
+        localStorage.setItem('lastStars', JSON.stringify(this.lastStars));
+
         let gameOverview = {
             lastStars: this.lastStars,
             topicId: Number(this.$route.params.topicId),
@@ -105,9 +101,10 @@ export default {
 
         achievements.forEach((achie) => {
             if(JSON.parse(localStorage.getItem(achie.id)) !== false) {
-                localStorage.setItem(achie.id, achie.isLocked(gameOverview));
-                if(JSON.parse(localStorage.getItem(achie.id)) === false) {
-                    this.store.addNewAchie();
+                let achieIsLocked = achie.isLocked(gameOverview);
+                localStorage.setItem(achie.id, achieIsLocked);
+                if(achieIsLocked === false) {
+                    this.store.addNewAchieNotification();
                 }
             }
         });
@@ -348,21 +345,10 @@ export default {
         }
 
         .backBtn {
-            position: relative;
-            border: none;
-            outline: none;
+            @include button;
             text-decoration: none;
             color: $white;
-            font-family: 'Cormorant Garamond', serif;
-            text-transform: uppercase;
-            letter-spacing: 0.06em;
-            font-size: 1.2em;
-            font-weight: 600;
-            padding: 0.5em 1.5em;
-            border-radius: 0.25em;
-            background: $main;
             cursor: pointer;
-            transition: 0.5s;
 
             @include mobile {
                 font-size: 1em;

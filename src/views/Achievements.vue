@@ -69,13 +69,13 @@ export default {
         }
     },
     mounted() {
-        let getAllStars = localStorage.getItem('allStars');
-        let getLastStars = localStorage.getItem('lastStars');
-        if(getAllStars) {
-            this.allStars = Number(getAllStars);
+        let storedAllStars = localStorage.getItem('allStars');
+        let storedLastStars = localStorage.getItem('lastStars');
+        if(storedAllStars) {
+            this.allStars = Number(storedAllStars);
         }
-        if(getLastStars) {
-            this.lastStars = JSON.parse(getLastStars);
+        if(storedLastStars) {
+            this.lastStars = JSON.parse(storedLastStars);
         }
     }
 }

@@ -7,7 +7,7 @@ export const useAchieNotification = defineStore('achieNot', {
         }
     },
     actions: {
-        addNewAchie() {
+        addNewAchieNotification() {
             this.newAchie = true;
             localStorage.setItem("newAchie", "true");
         },

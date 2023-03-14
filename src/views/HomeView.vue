@@ -199,18 +199,7 @@ export default {
     }
 
     .play {
-      position: relative;
-      border: none;
-      outline: none;
-      font-family: 'Cormorant Garamond', serif;
-      text-transform: uppercase;
-      letter-spacing: 0.06em;
-      font-size: 1.2em;
-      font-weight: 600;
-      padding: 0.5em 1.5em;
-      border-radius: 0.25em;
-      background: $main;
-      transition: 0.5s;
+      @include button;
 
       span {
         font-family: 'Cormorant Garamond', serif;
