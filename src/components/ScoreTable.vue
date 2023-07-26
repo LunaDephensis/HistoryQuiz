@@ -2,7 +2,7 @@
     <div class="scoreTable">
             <div class="points">
                 <h3>Helyes válaszok száma:</h3>
-                <span class="counter">5/<span class="point">{{score}}</span></span>
+                <span class="counter"><span class="point">{{score}}</span>/5</span>
             </div>
             <div class="overview">
                 <h3>Áttekintés</h3>
