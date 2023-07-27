@@ -1,8 +1,8 @@
 <template>
     <footer>
       <ul class="contact">
-        <li><a href="#"><ion-icon name="logo-github"></ion-icon></a></li>
-        <li><a href="#"><ion-icon name="logo-linkedin"></ion-icon></a></li>
+        <li><a target="_blank" href="https://github.com/LunaDephensis/HistoryQuiz"><ion-icon name="logo-github"></ion-icon></a></li>
+        <li><a target="_blank" href="https://www.linkedin.com/in/nikolett-z%C3%A1mb%C3%B3-0a9942285/"><ion-icon name="logo-linkedin"></ion-icon></a></li>
       </ul>
       <span class="codeBy">Code and pictures by <a href="#">Zámbó Nikolett</a></span>
       <span class="links">icons:
