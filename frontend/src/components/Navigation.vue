@@ -1,0 +1,153 @@
+<template>
+    <nav>
+      <router-link to="/" class="logo"><span>H</span>istory <ion-icon name="flash-sharp"></ion-icon> <span>Q</span>uiz</router-link>
+      <ul class="navbar" v-if="!isLoggedIn">
+        <li><router-link to="/login">Belépés</router-link></li>
+        <li><router-link to="/signup">Regisztráció</router-link></li>
+      </ul>
+      <ul class="navbar loggedin" v-if="isLoggedIn">
+        <li>
+          <router-link to="/achievements" class="stars" :class="{active: isNewAchie}"
+            @click="removeAchieNotification()">
+              <img src="/images/shield.png" alt="stars">
+          </router-link>
+        </li>
+        <li><router-link to="/login">Kilépés</router-link></li>
+      </ul>
+    </nav>
+</template>
+
+<script>
+import { useAchieNotification } from '../stores/achieNotification';
+
+export default {
+  name: 'Navigation',
+  setup() {
+    const store = useAchieNotification();
+    return { store }
+  },
+  data() {
+    return {
+      isLoggedIn: false
+    }
+  },
+  methods: {
+    removeAchieNotification() {
+      this.store.removeNotification();
+    }
+  },
+  computed: {
+    isNewAchie() {
+      return this.store.newAchie
+    }
+  }
+}
+
+</script>
+
+<style lang="scss" scoped>
+
+nav {
+    position: relative;
+    width: 100%;
+    height: 5em;
+    z-index: 1000;
+    padding: 0 8em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @include tablet {
+      padding: 0 3.7em;
+    }
+
+    @include mobile {
+      padding: 0 1.5em;
+    }
+
+    .logo {
+      font-family: 'Cormorant Garamond', serif;
+      text-decoration: none;
+      text-transform: uppercase;
+      font-weight: 700;
+      font-size: 1.1em;
+      letter-spacing: 0.2em;
+      cursor: pointer;
+      color: $main;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      ion-icon {
+        font-size: 0.8em;
+        color: $star;
+        margin: 0 0.2em;
+        opacity: 0.8;
+      }
+
+      span {
+        font-size: 1.6em;
+        font-family: 'Cormorant Garamond', serif;
+        text-transform: uppercase;
+      }
+    }
+
+    .navbar {
+      position: relative;
+      display: flex;
+      justify-content: flex-end;
+      align-items: center;
+      height: 100%;
+
+      li {
+        list-style: none;
+        margin-left: 1em;
+
+        a {
+          text-decoration: none;
+          color: $main;
+
+          &:hover {
+            color: $mainHover;
+          }
+        }
+      }
+    }
+
+    .stars {
+      position: relative;
+      text-decoration: none;
+      width: 2.5em;
+      transition: 0.3s ease-in-out;
+      border: 0.03em solid transparent;
+
+      &.active {
+        border-radius: 50%;
+        border: 0.03em solid $glowingBorder;
+        box-shadow: 0 0 0.6em $glow,
+                    inset 0 0 0.2em $glowInset;
+      }
+
+      @include mobile {
+        position: fixed;
+        top: 1.5em;
+        right: 2em;
+      }
+
+      img {
+        max-width: 100%;
+        transition: 0.3s ease-in-out;
+      }
+
+      &:hover {
+        transform: scale(1.1);
+
+        img {
+          max-width: 100%;
+          transform: scale(1.1);
+        }
+      }
+    }
+}
+
+</style>
