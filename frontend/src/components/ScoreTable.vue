@@ -4,6 +4,10 @@
                 <h3>Helyes válaszok száma:</h3>
                 <span class="counter"><span class="point">{{score}}</span>/5</span>
             </div>
+            <div class="achieNotification" v-if="hasNewAchie">
+                <h2>Gratulálok! Új kitüntetést szereztél!</h2>
+                <router-link to="/achievements" class="backBtn">Kitüntetések megtekintése</router-link>
+            </div>
             <div class="overview">
                 <h3>Áttekintés</h3>
                 <div class="overviewTable">
@@ -33,81 +37,20 @@
 </template>
 
 <script>
-import achievements from '../achievements.js';
-import { useAchieNotification } from '../stores/achieNotification';
+import { useTokenStore } from '../stores/tokenStore';
 
 export default {
     name: 'ScoreTable',
-    props: ['puzzles'],
+    props: ['puzzles', 'score', 'hasNewAchie'],
     setup() {
-        const store = useAchieNotification();
-        return { store }
+        const tokenStore = useTokenStore();
+        return { tokenStore }
     },
     data() {
         return {
-            score: 0,
             allStars: 0,
             lastStars: []
         }
-    },
-    mounted() {
-        this.puzzles.forEach((puzzle) => {
-            if(puzzle.userGuess === puzzle.correctIndex) {
-                puzzle.isWin = true;
-                this.score++;
-            }
-            else {
-                puzzle.isWin = false;
-            }
-        });
-
-        let storedAllStars = localStorage.getItem('allStars');
-        let storedLastStars = localStorage.getItem('lastStars');
-
-        if(storedAllStars) {
-            this.allStars = Number(storedAllStars);
-            this.allStars += this.score;
-        }
-        else {
-            this.allStars += this.score;
-        }
-        localStorage.setItem('allStars', this.allStars);
-
-        let newStar = {
-            score: this.score,
-            date: new Date()
-        };
-
-        if(storedLastStars) {
-            this.lastStars = JSON.parse(storedLastStars);
-
-            if(this.lastStars.length === 5) {
-                this.lastStars.pop();
-            }
-
-            this.lastStars.unshift(newStar);
-        }
-        else {
-            this.lastStars.push(newStar);
-        }
-        localStorage.setItem('lastStars', JSON.stringify(this.lastStars));
-
-        let gameOverview = {
-            lastStars: this.lastStars,
-            topicId: Number(this.$route.params.topicId),
-            score: this.score,
-            allStars: this.allStars
-        };
-
-        achievements.forEach((achie) => {
-            if(JSON.parse(localStorage.getItem(achie.id)) !== false) {
-                let achieIsLocked = achie.isLocked(gameOverview);
-                localStorage.setItem(achie.id, achieIsLocked);
-                if(achieIsLocked === false) {
-                    this.store.addNewAchieNotification();
-                }
-            }
-        });
     }
 }
 
@@ -178,6 +121,21 @@ export default {
                     color: $mainHover;
                     font-weight: 600;
                 }
+            }
+        }
+
+        .achieNotification {
+            position: relative;
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            margin: 2em 0;
+
+            h2 {
+                color: $mainHover;
+                margin-bottom: 1em;
             }
         }
 

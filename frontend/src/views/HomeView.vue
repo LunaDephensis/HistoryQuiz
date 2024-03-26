@@ -1,8 +1,8 @@
 <template>
   <section class="home">
     <div class="mainContent">
-      <h3 v-if="isLoggedIn">Válassz egy témakört, majd kattints a Játék indítása gombra!</h3>
-      <h3 v-if="!isLoggedIn">Jelentkezz be, és már indulhat is a játék!</h3>
+      <h3 v-if="tokenStore.hasToken">Válassz egy témakört, majd kattints a Játék indítása gombra!</h3>
+      <h3 v-if="!tokenStore.hasToken">Jelentkezz be, és már indulhat is a játék!</h3>
       <div class="timeLine">
         <div class="periodBox" 
               v-for="topic in topics" :key="topic.id">
@@ -21,12 +21,12 @@
       <div class="playButtonWrapper">
         <button class="play"
                 :class="{active: isActivePlayButton}"
-                v-if="isLoggedIn"
+                v-if="tokenStore.hasToken"
                 @click="launchQuiz()">
                   <span>Játék indítása</span>
         </button>
-        <router-link to="/login" class="login" v-if="!isLoggedIn">Belépés</router-link>
-        <button class="login google-login" v-if="!isLoggedIn"><span>Belépés Google-fiókkal</span></button>
+        <router-link to="/login" class="login" v-if="!tokenStore.hasToken">Belépés</router-link>
+        <button class="login google-login" v-if="!tokenStore.hasToken"><span>Belépés Google-fiókkal</span></button>
       </div>
       
     </div>
@@ -35,8 +35,14 @@
 
 <script>
 
+import { useTokenStore } from '../stores/tokenStore';
+
 export default {
   name: 'Home',
+  setup() {
+    const tokenStore = useTokenStore();
+    return { tokenStore };
+  },
   data() {
     return {
       topics: [
@@ -57,8 +63,7 @@ export default {
         }
       ],
       choosedTopicId: undefined,
-      isActivePlayButton: false,
-      isLoggedIn: false
+      isActivePlayButton: false
     }
   },
   methods: {

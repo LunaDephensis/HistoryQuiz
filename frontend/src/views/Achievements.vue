@@ -28,13 +28,13 @@
                 
             </div>
             <div class="medals">
-                <div class="medalBox" v-for="achie in achies" :key="achie.id"
-                    :class="{'locked': checkLock(achie.id)}">
+                <div class="medalBox" v-for="achie in achies" :key="achie.achieId._id"
+                    :class="{'locked': !achie.isUnlocked}">
                     <div class="medal">
-                        <img :src="achie.picture" alt="medal">
+                        <img :src="achie.achieId.imgUrl" alt="medal">
                     </div>
-                    <h4>{{achie.name}}</h4>
-                    <p v-html="achie.desc"></p>
+                    <h4>{{achie.achieId.title}}</h4>
+                    <p v-html="achie.achieId.desc"></p>
                 </div>
                 
             </div>
@@ -44,35 +44,55 @@
 
 <script>
 
-import achievements from '../achievements.js';
+import { useTokenStore } from '../stores/tokenStore.js';
+import { useLoaderStore } from '../stores/loaderStore';
+import axios from '../axios';
 
 export default {
     name: 'Achievements',
+    setup() {
+        const tokenStore = useTokenStore();
+        const loaderStore = useLoaderStore();
+        return { tokenStore, loaderStore };
+    },
     data() {
         return {
             allStars: 0,
             lastStars: [],
-            achies: achievements
+            achies: []
         }
     },
     methods: {
-        checkLock(id) {
-            let lock = JSON.parse(localStorage.getItem(id));
-            if(lock === null) {
-                return true;
+        async getUser() {
+            const userData = await axios.get('/user');
+            if(userData.status === 200) {
+                return userData.data;
             }
-            return lock;
+            else {
+                throw new Error('Hiba a felhasználói adatok betöltésekor.')
+            }
         }
     },
-    mounted() {
-        let storedAllStars = localStorage.getItem('allStars');
+    async mounted() {
+        try {
+            this.loaderStore.startLoading();
+            const user = await this.getUser();
+            this.allStars = user.allStars;
+            this.lastStars = user.lastResults;
+            this.achies = user.achievements;
+            this.loaderStore.stopLoading();
+        } catch(err) {
+            console.log(err);
+            //todo: hibakezelés?
+        }
+        /*let storedAllStars = localStorage.getItem('allStars');
         let storedLastStars = localStorage.getItem('lastStars');
         if(storedAllStars) {
             this.allStars = Number(storedAllStars);
         }
         if(storedLastStars) {
             this.lastStars = JSON.parse(storedLastStars);
-        }
+        }*/
     }
 }
 

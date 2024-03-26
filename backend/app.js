@@ -8,6 +8,7 @@ const cors = require('cors');
 var indexRouter = require('./routes/index');
 const userRouter = require('./routes/users');
 const puzzlesRouter = require('./routes/puzzles');
+const authRouter = require('./routes/auth');
 
 
 var app = express();
@@ -22,5 +23,6 @@ app.use(cors());
 app.use('/', indexRouter);
 app.use(userRouter);
 app.use(puzzlesRouter);
+app.use(authRouter);
 
 module.exports = app;

@@ -12,18 +12,26 @@
                     @click="nextPuzzle(i)"><ion-icon name="shield-half"></ion-icon>{{answer}}</li>
             </ul>
         </div>
-        <ScoreTable v-if="isActiveScoreTable" :puzzles="randomPuzzles" />
+        <ScoreTable v-if="isActiveScoreTable" :puzzles="gameOverview" :score="gameScore" :hasNewAchie="isActiveAchieNotification"/>
     </section>
 </template>
 
 <script>
 
 import ScoreTable from '../components/ScoreTable.vue';
+import { useTokenStore } from '../stores/tokenStore';
+import { useLoaderStore } from '../stores/loaderStore';
+import axios from '../axios';
 
 export default {
   name: 'Quiz',
   components: {
     ScoreTable
+  },
+  setup() {
+    const tokenStore = useTokenStore();
+    const loaderStore = useLoaderStore();
+    return { tokenStore, loaderStore };
   },
   data() {
       return {
@@ -35,17 +43,23 @@ export default {
           leftTime: 60,
           fullWidth: 100,
           leftWidth: 100,
-          timeKeeper: undefined
+          timeKeeper: undefined,
+          gameOverview: [],
+          gameScore: 0,
+          isActiveAchieNotification: false
       }
   },
   methods: {
-      nextPuzzle(index) {
+      async nextPuzzle(index) {
         this.actualPuzzle.userGuess = index;
         clearInterval(this.timeKeeper);
         this.leftTime = 60;
         this.leftWidth = 100;
         if(this.puzzleCounter === 4) {
+            this.loaderStore.startLoading();
+            await this.setGameResult();
             this.isActiveScoreTable = true;
+            this.loaderStore.stopLoading();
         }
         else {
             this.puzzleCounter++;
@@ -65,24 +79,43 @@ export default {
         }, 1000);
       },
       async getPuzzles(topicId) {
-        const puzzleData = await fetch(`http://localhost:3000/puzzles/${topicId}`, {
-            method: 'GET'
-        });
-        if(puzzleData.ok) {
-            const randomPuzzles = await puzzleData.json();
-            return randomPuzzles;
+        const puzzleData = await axios.get(`/puzzles/${topicId}`);
+        if(puzzleData.status === 200) {
+            return puzzleData.data;
         }
         else {
             throw new Error('Hiba a puzzlek betöltésekor');
+        }
+      },
+      async setGameResult() {
+        const userGuesses = this.randomPuzzles.map((puzzle) => {
+            return {
+                puzzleId: puzzle._id,
+                guessIndex: puzzle.userGuess
+            }
+        });
+        const gameResult = {
+            userGuesses: userGuesses,
+            topicId: Number(this.$route.params.topicId)
+        }
+        const resp = await axios.post('/gameresult', gameResult);
+        if(resp.status === 200) {
+            const gameSum = resp.data;
+            this.gameOverview = gameSum.gameResult;
+            this.gameScore = gameSum.score;
+            this.isActiveAchieNotification = gameSum.hasNewAchie;
         }
       }
   },
   async created() {
     const topicId = this.$route.params.topicId;
     try {
+        this.loaderStore.startLoading();
         this.randomPuzzles = await this.getPuzzles(topicId);
+        this.loaderStore.stopLoading();
     } catch(err) {
         console.log(err);
+        //todo: hibakezelés?
     }
     
       /*let puzzles = quizData.filter((dataItem) => {
@@ -193,7 +226,7 @@ export default {
                     position: relative;
                     height: 100%;
                     background: $shield;
-                    z-index: 100000;
+                    z-index: 100;
                     transition: 1s linear;
                 }
             }

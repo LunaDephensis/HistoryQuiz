@@ -2,6 +2,7 @@ import { fileURLToPath, URL } from 'node:url'
 
 import { defineConfig } from 'vite'
 import vue from '@vitejs/plugin-vue'
+import basicSsl from '@vitejs/plugin-basic-ssl'
 
 export default defineConfig({
   plugins: [vue({
@@ -10,7 +11,8 @@ export default defineConfig({
         isCustomElement: tag => tag.startsWith('ion-')
       }
     }
-  })],
+  }),
+  basicSsl()],
   resolve: {
     alias: {
       '@': fileURLToPath(new URL('./src', import.meta.url))
@@ -22,5 +24,8 @@ export default defineConfig({
         additionalData: `@import "@/assets/styles/_main.scss";`
       }
     }
+  },
+  server: {
+    https: true
   }
 })

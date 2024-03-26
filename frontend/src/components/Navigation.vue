@@ -1,44 +1,40 @@
 <template>
     <nav>
       <router-link to="/" class="logo"><span>H</span>istory <ion-icon name="flash-sharp"></ion-icon> <span>Q</span>uiz</router-link>
-      <ul class="navbar" v-if="!isLoggedIn">
+      <ul class="navbar" v-if="!tokenStore.hasToken">
         <li><router-link to="/login">Belépés</router-link></li>
         <li><router-link to="/signup">Regisztráció</router-link></li>
       </ul>
-      <ul class="navbar loggedin" v-if="isLoggedIn">
+      <ul class="navbar loggedin" v-if="tokenStore.hasToken">
         <li>
-          <router-link to="/achievements" class="stars" :class="{active: isNewAchie}"
-            @click="removeAchieNotification()">
-              <img src="/images/shield.png" alt="stars">
+          <router-link to="/achievements">
+              <img src="/images/shield.png" alt="pajzs">
+              Profilom
           </router-link>
         </li>
-        <li><router-link to="/login">Kilépés</router-link></li>
+        <li><a @click="logout">Kilépés</a></li>
       </ul>
     </nav>
 </template>
 
 <script>
-import { useAchieNotification } from '../stores/achieNotification';
+import { useTokenStore } from '../stores/tokenStore';
 
 export default {
   name: 'Navigation',
   setup() {
-    const store = useAchieNotification();
-    return { store }
-  },
-  data() {
-    return {
-      isLoggedIn: false
-    }
+    const tokenStore = useTokenStore();
+    return { tokenStore }
   },
   methods: {
-    removeAchieNotification() {
-      this.store.removeNotification();
-    }
-  },
-  computed: {
-    isNewAchie() {
-      return this.store.newAchie
+    async logout() {
+      const success = await this.tokenStore.clearToken();
+      if(success) {
+        this.$router.push({path: `/login`});
+      } else {
+        console.log(err);
+        //todo: átirányítani egy error oldalra
+      }
     }
   }
 }
@@ -101,32 +97,32 @@ nav {
 
       li {
         list-style: none;
-        margin-left: 1em;
+        margin-left: 2.5em;
 
         a {
           text-decoration: none;
           color: $main;
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          cursor: pointer;
 
           &:hover {
             color: $mainHover;
+          }
+
+          img {
+            max-height: 2em;
+            margin-right: 0.2em;
           }
         }
       }
     }
 
-    .stars {
+    /*.stars {
       position: relative;
       text-decoration: none;
       width: 2.5em;
-      transition: 0.3s ease-in-out;
-      border: 0.03em solid transparent;
-
-      &.active {
-        border-radius: 50%;
-        border: 0.03em solid $glowingBorder;
-        box-shadow: 0 0 0.6em $glow,
-                    inset 0 0 0.2em $glowInset;
-      }
 
       @include mobile {
         position: fixed;
@@ -136,18 +132,8 @@ nav {
 
       img {
         max-width: 100%;
-        transition: 0.3s ease-in-out;
       }
-
-      &:hover {
-        transform: scale(1.1);
-
-        img {
-          max-width: 100%;
-          transform: scale(1.1);
-        }
-      }
-    }
+    }*/
 }
 
 </style>

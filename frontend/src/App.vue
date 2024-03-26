@@ -2,10 +2,16 @@
 import { RouterView } from 'vue-router';
 import Navigation from './components/Navigation.vue';
 import MyFooter from './components/MyFooter.vue';
+import Loader from './components/Loader.vue';
+import { useLoaderStore } from './stores//loaderStore';
 
 export default {
   components: {
-    Navigation, MyFooter
+    Navigation, MyFooter, Loader
+  },
+  setup() {
+    const loaderStore = useLoaderStore();
+    return { loaderStore };
   }
 }
 </script>
@@ -13,7 +19,8 @@ export default {
 <template>
   <div id="mainContainer">
     <Navigation/>
-    <RouterView />
+    <Loader v-if="loaderStore.getLoader"/>
+    <RouterView/>
     <MyFooter/>
   </div>
   
