@@ -45,15 +45,13 @@
 <script>
 
 import { useTokenStore } from '../stores/tokenStore.js';
-import { useLoaderStore } from '../stores/loaderStore';
 import axios from '../axios';
 
 export default {
     name: 'Achievements',
     setup() {
         const tokenStore = useTokenStore();
-        const loaderStore = useLoaderStore();
-        return { tokenStore, loaderStore };
+        return { tokenStore };
     },
     data() {
         return {
@@ -75,24 +73,14 @@ export default {
     },
     async mounted() {
         try {
-            this.loaderStore.startLoading();
             const user = await this.getUser();
             this.allStars = user.allStars;
             this.lastStars = user.lastResults;
             this.achies = user.achievements;
-            this.loaderStore.stopLoading();
         } catch(err) {
-            console.log(err);
+            this.$router.push({path: '/error'});
             //todo: hibakezelés?
         }
-        /*let storedAllStars = localStorage.getItem('allStars');
-        let storedLastStars = localStorage.getItem('lastStars');
-        if(storedAllStars) {
-            this.allStars = Number(storedAllStars);
-        }
-        if(storedLastStars) {
-            this.lastStars = JSON.parse(storedLastStars);
-        }*/
     }
 }
 

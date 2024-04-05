@@ -20,7 +20,6 @@
 
 import ScoreTable from '../components/ScoreTable.vue';
 import { useTokenStore } from '../stores/tokenStore';
-import { useLoaderStore } from '../stores/loaderStore';
 import axios from '../axios';
 
 export default {
@@ -30,8 +29,7 @@ export default {
   },
   setup() {
     const tokenStore = useTokenStore();
-    const loaderStore = useLoaderStore();
-    return { tokenStore, loaderStore };
+    return { tokenStore };
   },
   data() {
       return {
@@ -56,10 +54,13 @@ export default {
         this.leftTime = 60;
         this.leftWidth = 100;
         if(this.puzzleCounter === 4) {
-            this.loaderStore.startLoading();
-            await this.setGameResult();
-            this.isActiveScoreTable = true;
-            this.loaderStore.stopLoading();
+            try{
+                await this.setGameResult();
+                this.isActiveScoreTable = true;
+            }
+            catch(err) {
+                this.$router.push({path: '/error'});
+            }
         }
         else {
             this.puzzleCounter++;
@@ -80,12 +81,7 @@ export default {
       },
       async getPuzzles(topicId) {
         const puzzleData = await axios.get(`/puzzles/${topicId}`);
-        if(puzzleData.status === 200) {
-            return puzzleData.data;
-        }
-        else {
-            throw new Error('Hiba a puzzlek betöltésekor');
-        }
+        return puzzleData.data;
       },
       async setGameResult() {
         const userGuesses = this.randomPuzzles.map((puzzle) => {
@@ -110,27 +106,11 @@ export default {
   async created() {
     const topicId = this.$route.params.topicId;
     try {
-        this.loaderStore.startLoading();
         this.randomPuzzles = await this.getPuzzles(topicId);
-        this.loaderStore.stopLoading();
     } catch(err) {
-        console.log(err);
+        this.$router.push({path: '/error'});
         //todo: hibakezelés?
     }
-    
-      /*let puzzles = quizData.filter((dataItem) => {
-        return dataItem.topicId === Number(this.$route.params.topicId);
-      });
-      let randomIndexes = [];
-      while(randomIndexes.length < 5) {
-        let num = Math.floor(Math.random() * (puzzles.length));
-        if(!randomIndexes.includes(num)) {
-            randomIndexes.push(num);
-        }
-      }
-      randomIndexes.forEach((randomIndex) => {
-        this.randomPuzzles.push(puzzles[randomIndex]);
-      });*/
       this.actualPuzzle = this.randomPuzzles[this.puzzleCounter];
       this.timeCounter();
   },

@@ -25,11 +25,11 @@ async function generateUserAchies() {
 
 function getTokens(email) {
   return new Promise((resolve, reject) => {
-    jwt.sign({email: email}, 'cicakutya', { expiresIn: '2h' }, (err, accessToken) => {
+    jwt.sign({email: email}, process.env.SECRET, { expiresIn: '2h' }, (err, accessToken) => {
       if(err) {
         reject(err);
       }
-      jwt.sign({email: email}, 'kutyacica', { expiresIn: '1d' }, (err, refreshToken) => {
+      jwt.sign({email: email}, process.env.REFRESH_SECRET, { expiresIn: '1d' }, (err, refreshToken) => {
           if(err) {
             reject(err);
           }

@@ -4,6 +4,8 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 const cors = require('cors');
 
+require('dotenv').config()
+
 
 var indexRouter = require('./routes/index');
 const userRouter = require('./routes/users');
@@ -18,7 +20,11 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-app.use(cors());
+app.use(cors({
+    credentials: true,
+    origin: ['https://localhost:5173'],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS']
+}));
 
 app.use('/', indexRouter);
 app.use(userRouter);

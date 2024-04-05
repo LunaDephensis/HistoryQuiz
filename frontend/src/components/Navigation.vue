@@ -32,7 +32,7 @@ export default {
       if(success) {
         this.$router.push({path: `/login`});
       } else {
-        console.log(err);
+        this.$router.push({path: '/error'});
         //todo: átirányítani egy error oldalra
       }
     }

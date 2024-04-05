@@ -31,14 +31,25 @@ const router = createRouter({
       path: '/signup',
       name: 'signup',
       component: () => import('../views/Signup.vue')
+    },
+    {
+      path: '/error',
+      name: 'error',
+      component: () => import('../views/Error.vue')
     }
   ]
 });
 
-router.beforeEach((to, from, next) => {
+router.beforeEach(async (to, from, next) => {
   const tokenStore = useTokenStore();
-  if(to.meta.requiresAuth && !tokenStore.hasToken) {
-    next({name: 'login'})
+  if((to.meta.requiresAuth || to.path === '/') && !tokenStore.hasToken) {
+    const success = await tokenStore.refresh();
+    if(success || to.path === '/') {
+      next();
+    }
+    else {
+      next({name: 'login'});
+    }
   }
   else {
     next()

@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "axios": "^1.6.8",
+    "dotenv": "^16.4.5",
     "pinia": "2.0.28",
     "sass": "1.57.1",
     "validator": "^13.11.0",

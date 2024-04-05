@@ -39,7 +39,7 @@ async function login(req, res, next) {
             const isMatched = await bcrypt.compare(req.body.password, user.password);
             if(isMatched) {
                 const tokens = await getTokens(req.body.email);
-                res.cookie('refreshToken', tokens.refreshToken, { httpOnly: true, secure: true, sameSite: 'strict' });
+                res.cookie('refreshToken', tokens.refreshToken, { httpOnly: true, secure: true, sameSite: 'none' });
                 res.status(200).send({ accessToken: tokens.accessToken });
             } else {
                 res.status(403).send();
@@ -74,7 +74,7 @@ async function loginWithGoogle(req, res, next) {
             );
         }
         const tokens = await getTokens(email);
-        res.cookie('refreshToken', tokens.refreshToken, { httpOnly: true, secure: true, sameSite: 'strict' });
+        res.cookie('refreshToken', tokens.refreshToken, { httpOnly: true, secure: true, sameSite: 'none' });
         res.status(200).send({ accessToken: tokens.accessToken });
     }
     catch(err) {
@@ -84,28 +84,19 @@ async function loginWithGoogle(req, res, next) {
 }
 
 function logout(req, res, next) {
-    res.clearCookie('refreshToken');
+    res.clearCookie('refreshToken', { httpOnly: true, secure: true, sameSite: 'none' });
     res.status(200).send();
 }
 
 function refresh(req, res, next) {
     const oldRefreshToken = req.cookies.refreshToken;
-    jwt.verify(oldRefreshToken, 'kutyacica', (err, payload) => {
+    jwt.verify(oldRefreshToken, process.env.REFRESH_SECRET, async (err, payload) => {
         if(err) {
            return res.status(403).send();
         }
-        jwt.sign(payload, 'cicakutya', { expiresIn: '2h' }, (err, accessToken) => {
-            if(err) {
-                throw new Error(err);
-            }
-            jwt.sign(payload, 'kutyacica', { expiresIn: '1d' }, (err, refreshToken) => {
-                if(err) {
-                    throw new Error(err);
-                }
-                res.cookie('refreshToken', refreshToken, { httpOnly: true, secure: true, sameSite: 'strict' });
-                res.status(200).send({ accessToken: accessToken });
-            });
-        });
+        const tokens = await getTokens(payload.email);
+        res.cookie('refreshToken', tokens.refreshToken, { httpOnly: true, secure: true, sameSite: 'none' });
+        res.status(200).send({ accessToken: tokens.accessToken });
     });
 } 
 
