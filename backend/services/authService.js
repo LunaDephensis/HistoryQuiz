@@ -1,15 +1,20 @@
 const jwt = require('jsonwebtoken');
 const { OAuth2Client } = require('google-auth-library');
-const client = new OAuth2Client("785933032147-qnthgqpg1hat7e4hior5hhuoilo2gj4i.apps.googleusercontent.com");
+const client = new OAuth2Client();
 
 const Achievement = require('../schemas/achievement');
 
-async function verifyCredentials(credential) {
-    const ticket = await client.verifyIdToken({
-      idToken: credential,
+async function verifyGoogleToken(token) {
+  client.setCredentials({access_token: token});
+  const userInfo = await client.request({
+    url: "https://www.googleapis.com/oauth2/v3/userinfo"
+  });
+  return userInfo.data;
+    /*const ticket = await client.verifyIdToken({
+      idToken: token,
     });
     const payload = ticket.getPayload();
-    return payload;
+    return payload;*/
 }
 
 async function generateUserAchies() {
@@ -39,4 +44,4 @@ function getTokens(email) {
   });
 }
 
-module.exports = { verifyCredentials, generateUserAchies, getTokens };
+module.exports = { verifyGoogleToken, generateUserAchies, getTokens };

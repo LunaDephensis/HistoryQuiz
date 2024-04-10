@@ -32,7 +32,9 @@
                 <a href="#">Regisztráció</a>
                 <button @click="login()" type="button">Bejelentkezés</button>
                 <p>vagy</p>
-                <GoogleLogin :callback="loginWithGoogle"/>
+                <GoogleLogin :callback="loginWithGoogle" popup-type="TOKEN">
+                    <button type="button" class="google-btn"><img src="images/google-icon.png" alt="google icon">Belépés Google-fiókkal</button>
+                </GoogleLogin>
                 <!--<button type="button" class="google-btn"><img src="images/google-icon.png" alt="google icon">Belépés Google-fiókkal</button>-->
             </form>
         </div>
@@ -69,35 +71,32 @@
                             password: this.password
                         });
 
-                        if(resp.status === 200) {
-                            const token = resp.data;
-                            this.tokenStore.setToken(token.accessToken);
-                            this.$router.push({path: `/`});
-                        }
-                        else if(resp.status === 403) {
+                        const token = resp.data;
+                        this.tokenStore.setToken(token.accessToken);
+                        this.$router.push({path: `/`});
+                    }
+                    catch(err) {
+                        if(err.response?.status === 403) {
                             this.invalidLoginError = true;
                         }
                         else {
+                            this.$router.push({path: '/error'});
                             //todo: hibakezelés
                         }
-                    }
-                    catch(err) {
-                        console.log(err);
-                        this.invalidLoginError = true;
                     } 
                 }
             },
             async loginWithGoogle(response) {
-                const resp = await axios.post('/google/login', {
-                    googleToken: response.credential
-                });
-                if(resp.status === 200) {
+                try {
+                    const resp = await axios.post('/google/login', {
+                        googleToken: response.access_token
+                    });
                     const token = resp.data;
                     this.tokenStore.setToken(token.accessToken);
                     this.$router.push({path: `/`});
                 }
-                else{
-                    //todo: hibakezelés
+                catch(err) {
+                    this.$router.push({path: '/error'});
                 }
             },
             validateLogin() {
@@ -282,6 +281,10 @@
                     &:hover {
                         background-color: $mainHoverDark;
                     }
+                }
+
+                .g-btn-wrapper {
+                    width: 100%;
                 }
 
                 .google-btn {

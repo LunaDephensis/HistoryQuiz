@@ -52,7 +52,9 @@
             <p>vagy belépés ezzel:</p>
             <div class="loginWrapper">
                 <router-link to="/login"><ion-icon name="mail"></ion-icon> Email</router-link>
-                <button><img src="images/google-icon.png" alt="google icon"> Google</button>
+                <GoogleLogin :callback="loginWithGoogle" popup-type="TOKEN">
+                    <button><img src="images/google-icon.png" alt="google icon"> Google</button>
+                </GoogleLogin>
             </div>
         </div>
     </section>
@@ -61,9 +63,15 @@
 <script>
     import validator from 'validator';
     import axios from '../axios';
+    import { GoogleLogin } from 'vue3-google-login';
+    import { useTokenStore } from '../stores/tokenStore';
 
     export default {
         name: 'Signup',
+        setup() {
+            const tokenStore = useTokenStore();
+            return { tokenStore };
+        },
         data() {
             return {
                 username: "",
@@ -88,23 +96,27 @@
                     };
 
                     try {
-                        const resp = await axios.post('/signup', user);
-                        if(resp.status === 200) {
-                            this.$router.push({path: `/login`});
-                        }
-                        else if(resp.status === 400) {
-                            const errors = resp.data;
-                            const emailError = errors.find((err) => {
-                                return err.msg.errorCode === "email.exists";
-                            });
-                            if(emailError) {
-                                this.existUserErrorMessage = "Már létezik felhasználó ezzel az email-címmel.";
-                                this.invalidEmailError = true;
-                            }
-                            //todo: ha más hiba van, átirányítás hibaoldalra
-                        }
+                        await axios.post('/signup', user);
+                        this.$router.push({path: `/login`});
                     } catch(err) {
-                        console.log(err);
+                        if(err.response?.status === 400) {
+                            const errors = err.response.data;
+                            if(errors) {
+                                const emailError = errors.find((error) => {
+                                    return error.msg.errorCode === "email.exists";
+                                });
+                                if(emailError) {
+                                    this.existUserErrorMessage = "Már létezik felhasználó ezzel az email-címmel.";
+                                    this.invalidEmailError = true;
+                                }
+                            }
+                            else {
+                                this.$router.push({path: '/error'});
+                            }
+                        }
+                        else {
+                            this.$router.push({path: '/error'});
+                        }
                     }
                 }
             },
@@ -132,6 +144,19 @@
                     isValidSignup = false;
                 }
                 return isValidSignup;
+            },
+            async loginWithGoogle(response) {
+                try {
+                    const resp = await axios.post('/google/login', {
+                        googleToken: response.access_token
+                    });
+                    const token = resp.data;
+                    this.tokenStore.setToken(token.accessToken);
+                    this.$router.push({path: `/`});
+                }
+                catch(err) {
+                    this.$router.push({path: '/error'});
+                }
             }
         }
     }

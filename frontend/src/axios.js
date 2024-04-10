@@ -26,7 +26,6 @@ axiosInstance.interceptors.response.use((config) => {
     loaderStore.stopLoading();
     return config;
 }, async (err) => {
-    console.log(err.response);
     const loaderStore = useLoaderStore();
     if(err.response && err.response.status === 401) {
         const tokenStore= useTokenStore();

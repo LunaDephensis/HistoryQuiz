@@ -26,7 +26,9 @@
                   <span>Játék indítása</span>
         </button>
         <router-link to="/login" class="login" v-if="!tokenStore.hasToken">Belépés</router-link>
-        <button class="login google-login" v-if="!tokenStore.hasToken"><span>Belépés Google-fiókkal</span></button>
+        <GoogleLogin :callback="loginWithGoogle" popup-type="TOKEN" v-if="!tokenStore.hasToken">
+          <button type="button" class="google-btn"><img src="images/google-icon.png" alt="google icon">Belépés Google-fiókkal</button>
+        </GoogleLogin>
       </div>
       
     </div>
@@ -36,6 +38,8 @@
 <script>
 
 import { useTokenStore } from '../stores/tokenStore';
+import { GoogleLogin } from 'vue3-google-login';
+import axios from '../axios';
 
 export default {
   name: 'Home',
@@ -74,6 +78,19 @@ export default {
     launchQuiz() {
       if(this.isActivePlayButton) {
         this.$router.push({path: `/quiz/${this.choosedTopicId}`});
+      }
+    },
+    async loginWithGoogle(response) {
+      try {
+        const resp = await axios.post('/google/login', {
+          googleToken: response.access_token
+        });
+        const token = resp.data;
+        this.tokenStore.setToken(token.accessToken);
+        this.$router.push({path: `/`});
+      }
+      catch(err) {
+        this.$router.push({path: '/error'});
       }
     }
   }
@@ -211,6 +228,11 @@ export default {
       justify-content: center;
       align-items: center;
       width: 100%;
+
+      @include mobile {
+        flex-direction: column;
+      }
+
       .play {
         @include button;
 
@@ -263,13 +285,52 @@ export default {
         &:hover {
           color: $white;
         }
+
+        @include mobile {
+          margin-bottom: 1em;
+        }
       }
 
-      .google-login {
+      /*.google-login {
         margin-left: 3em;
         span {
           font-family: 'Cormorant Garamond', serif;
           font-size: 0.9em;
+        }
+      }*/
+
+      .g-btn-wrapper {
+        margin-left: 3em;
+
+        @include mobile {
+          margin-left: 0;
+        }
+      }
+
+      .google-btn {
+        @include button;
+        position: relative;
+        cursor: pointer;
+        color: $dark;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 0.9em;
+        font-weight: 700;
+        padding: 0.35em 1.2em;
+
+        &:hover {
+          color: $white;
+        }
+
+        @include tablet {
+          padding: 0.3em 1em;
+        }
+
+        img {
+          height: 2em;
+          margin-right: 0.5em;
         }
       }
     }

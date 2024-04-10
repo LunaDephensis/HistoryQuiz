@@ -74,6 +74,10 @@ nav {
       justify-content: center;
       align-items: center;
 
+      @include mobile {
+        font-size: 0.9em;
+      }
+
       ion-icon {
         font-size: 0.8em;
         color: $star;

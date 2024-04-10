@@ -1,7 +1,7 @@
 const bcrypt = require('bcrypt');
 const { validationResult } = require('express-validator');
 const jwt = require('jsonwebtoken');
-const { verifyCredentials, generateUserAchies, getTokens } = require('../services/authService');
+const { verifyGoogleToken, generateUserAchies, getTokens } = require('../services/authService');
 
 const User = require('../schemas/user');
 
@@ -49,7 +49,7 @@ async function login(req, res, next) {
         }
     }
     catch(err) {
-        console.log(err);
+        next(err);
         //todo: hibakezelés
     }
 }
@@ -57,7 +57,7 @@ async function login(req, res, next) {
 async function loginWithGoogle(req, res, next) {
     const googleToken = req.body.googleToken;
     try{
-        const payload = await verifyCredentials(googleToken);
+        const payload = await verifyGoogleToken(googleToken);
         const email = payload.email;
         const name = payload.name;
         const user = await User.findOne({email: email});
@@ -78,8 +78,7 @@ async function loginWithGoogle(req, res, next) {
         res.status(200).send({ accessToken: tokens.accessToken });
     }
     catch(err) {
-        console.log(err);
-        res.sendStatus(403);
+        next(err);
     }
 }
 
