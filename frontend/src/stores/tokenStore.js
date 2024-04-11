@@ -4,7 +4,8 @@ import axios from '../axios';
 export const useTokenStore = defineStore('token', {
     state: () => {
         return {
-            accessToken: undefined
+            accessToken: undefined,
+            username: undefined
         }
     },
     actions: {
@@ -30,11 +31,15 @@ export const useTokenStore = defineStore('token', {
                 if(resp.status === 200) {
                     const token = resp.data;
                     this.setToken(token.accessToken);
+                    this.setUsername(token.username);
                     return true;
                 }
             } catch(err) {
                 return false;
             }
+        },
+        setUsername(name) {
+            this.username = name;
         }
     },
     getters: {
@@ -43,6 +48,9 @@ export const useTokenStore = defineStore('token', {
         },
         getToken(state) {
             return state.accessToken;
+        },
+        getUsername(state) {
+            return state.username;
         }
     }
 });

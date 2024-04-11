@@ -10,11 +10,6 @@ async function verifyGoogleToken(token) {
     url: "https://www.googleapis.com/oauth2/v3/userinfo"
   });
   return userInfo.data;
-    /*const ticket = await client.verifyIdToken({
-      idToken: token,
-    });
-    const payload = ticket.getPayload();
-    return payload;*/
 }
 
 async function generateUserAchies() {

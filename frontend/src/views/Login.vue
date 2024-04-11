@@ -73,6 +73,7 @@
 
                         const token = resp.data;
                         this.tokenStore.setToken(token.accessToken);
+                        this.tokenStore.setUsername(token.username);
                         this.$router.push({path: `/`});
                     }
                     catch(err) {
@@ -93,6 +94,7 @@
                     });
                     const token = resp.data;
                     this.tokenStore.setToken(token.accessToken);
+                    this.tokenStore.setUsername(token.username);
                     this.$router.push({path: `/`});
                 }
                 catch(err) {

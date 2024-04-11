@@ -9,7 +9,7 @@
         <li>
           <router-link to="/achievements">
               <img src="/images/shield.png" alt="pajzs">
-              Profilom
+              {{ tokenStore.getUsername }}
           </router-link>
         </li>
         <li><a @click="logout">Kilépés</a></li>

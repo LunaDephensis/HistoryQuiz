@@ -40,7 +40,7 @@ async function login(req, res, next) {
             if(isMatched) {
                 const tokens = await getTokens(req.body.email);
                 res.cookie('refreshToken', tokens.refreshToken, { httpOnly: true, secure: true, sameSite: 'none' });
-                res.status(200).send({ accessToken: tokens.accessToken });
+                res.status(200).send({ accessToken: tokens.accessToken, username: user.name });
             } else {
                 res.status(403).send();
             }
@@ -75,7 +75,7 @@ async function loginWithGoogle(req, res, next) {
         }
         const tokens = await getTokens(email);
         res.cookie('refreshToken', tokens.refreshToken, { httpOnly: true, secure: true, sameSite: 'none' });
-        res.status(200).send({ accessToken: tokens.accessToken });
+        res.status(200).send({ accessToken: tokens.accessToken, username: name });
     }
     catch(err) {
         next(err);
@@ -93,9 +93,10 @@ function refresh(req, res, next) {
         if(err) {
            return res.status(403).send();
         }
+        const user = await User.findOne({ email: payload.email });
         const tokens = await getTokens(payload.email);
         res.cookie('refreshToken', tokens.refreshToken, { httpOnly: true, secure: true, sameSite: 'none' });
-        res.status(200).send({ accessToken: tokens.accessToken });
+        res.status(200).send({ accessToken: tokens.accessToken, username: user.name });
     });
 } 
 
