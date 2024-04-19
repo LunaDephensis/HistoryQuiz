@@ -109,7 +109,6 @@ export default {
         this.randomPuzzles = await this.getPuzzles(topicId);
     } catch(err) {
         this.$router.push({path: '/error'});
-        //todo: hibakezelés?
     }
       this.actualPuzzle = this.randomPuzzles[this.puzzleCounter];
       this.timeCounter();

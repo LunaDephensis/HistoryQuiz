@@ -33,7 +33,6 @@ export default {
         this.$router.push({path: `/login`});
       } else {
         this.$router.push({path: '/error'});
-        //todo: átirányítani egy error oldalra
       }
     }
   }
@@ -122,22 +121,6 @@ nav {
         }
       }
     }
-
-    /*.stars {
-      position: relative;
-      text-decoration: none;
-      width: 2.5em;
-
-      @include mobile {
-        position: fixed;
-        top: 1.5em;
-        right: 2em;
-      }
-
-      img {
-        max-width: 100%;
-      }
-    }*/
 }
 
 </style>

@@ -35,7 +35,6 @@
                 <GoogleLogin :callback="loginWithGoogle" popup-type="TOKEN">
                     <button type="button" class="google-btn"><img src="images/google-icon.png" alt="google icon">Belépés Google-fiókkal</button>
                 </GoogleLogin>
-                <!--<button type="button" class="google-btn"><img src="images/google-icon.png" alt="google icon">Belépés Google-fiókkal</button>-->
             </form>
         </div>
     </section>
@@ -82,7 +81,6 @@
                         }
                         else {
                             this.$router.push({path: '/error'});
-                            //todo: hibakezelés
                         }
                     } 
                 }

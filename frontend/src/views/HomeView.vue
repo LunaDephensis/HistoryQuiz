@@ -292,14 +292,6 @@ export default {
         }
       }
 
-      /*.google-login {
-        margin-left: 3em;
-        span {
-          font-family: 'Cormorant Garamond', serif;
-          font-size: 0.9em;
-        }
-      }*/
-
       .g-btn-wrapper {
         margin-left: 3em;
 

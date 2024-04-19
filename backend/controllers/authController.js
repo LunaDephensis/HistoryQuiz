@@ -50,7 +50,6 @@ async function login(req, res, next) {
     }
     catch(err) {
         next(err);
-        //todo: hibakezelés
     }
 }
 

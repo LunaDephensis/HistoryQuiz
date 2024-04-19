@@ -37,21 +37,10 @@
 </template>
 
 <script>
-import { useTokenStore } from '../stores/tokenStore';
 
 export default {
     name: 'ScoreTable',
-    props: ['puzzles', 'score', 'hasNewAchie'],
-    setup() {
-        const tokenStore = useTokenStore();
-        return { tokenStore }
-    },
-    data() {
-        return {
-            allStars: 0,
-            lastStars: []
-        }
-    }
+    props: ['puzzles', 'score', 'hasNewAchie']
 }
 
 </script>

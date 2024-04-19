@@ -63,12 +63,7 @@ export default {
     methods: {
         async getUser() {
             const userData = await axios.get('/user');
-            if(userData.status === 200) {
-                return userData.data;
-            }
-            else {
-                throw new Error('Hiba a felhasználói adatok betöltésekor.')
-            }
+            return userData.data;
         }
     },
     async mounted() {
@@ -79,7 +74,6 @@ export default {
             this.achies = user.achievements;
         } catch(err) {
             this.$router.push({path: '/error'});
-            //todo: hibakezelés?
         }
     }
 }
@@ -388,10 +382,6 @@ export default {
                 h4 {
                     color: $white;
                     margin: 0.3em 0;
-                   /* font-family: 'Cormorant Garamond', serif;
-                    font-size: 1.2em;
-                    text-transform: uppercase;
-                    letter-spacing: 0.05em;*/
                 }
 
                 p {
