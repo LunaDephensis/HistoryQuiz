@@ -53,7 +53,7 @@
             <div class="loginWrapper">
                 <router-link to="/login"><ion-icon name="mail"></ion-icon> Email</router-link>
                 <GoogleLogin :callback="loginWithGoogle" popup-type="TOKEN">
-                    <button><img src="images/google-icon.png" alt="google icon"> Google</button>
+                    <button><img src="/images/google-icon.png" alt="google icon"> Google</button>
                 </GoogleLogin>
             </div>
         </div>

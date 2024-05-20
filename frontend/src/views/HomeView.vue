@@ -27,7 +27,7 @@
         </button>
         <router-link to="/login" class="login" v-if="!tokenStore.hasToken">Belépés</router-link>
         <GoogleLogin :callback="loginWithGoogle" popup-type="TOKEN" v-if="!tokenStore.hasToken">
-          <button type="button" class="google-btn"><img src="images/google-icon.png" alt="google icon">Belépés Google-fiókkal</button>
+          <button type="button" class="google-btn"><img src="/images/google-icon.png" alt="google icon">Belépés Google-fiókkal</button>
         </GoogleLogin>
       </div>
       

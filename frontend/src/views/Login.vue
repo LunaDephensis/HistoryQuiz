@@ -33,7 +33,7 @@
                 <button @click="login()" type="button">Bejelentkezés</button>
                 <p>vagy</p>
                 <GoogleLogin :callback="loginWithGoogle" popup-type="TOKEN">
-                    <button type="button" class="google-btn"><img src="images/google-icon.png" alt="google icon">Belépés Google-fiókkal</button>
+                    <button type="button" class="google-btn"><img src="/images/google-icon.png" alt="google icon">Belépés Google-fiókkal</button>
                 </GoogleLogin>
             </form>
         </div>
